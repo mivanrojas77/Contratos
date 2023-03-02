@@ -1,0 +1,77 @@
+﻿<style>
+    .centerPrecio {
+        margin: auto;
+        width: 15%;
+        padding: 10px;
+    }
+</style>
+
+<div class="row" >
+    <div class="col-sm-6" >
+        <h3>Últimos 5 años</h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6" style="font-size:smaller">
+        <label>Precio valor año 1:</label>
+        <input id="TxtPrecioValorA1" name="TxtPrecioValorA1" type="number" min="0" max="99999999999" />
+        <br />
+        <label>Precio valor año 2:</label>
+        <input id="TxtPrecioValorA2" name="TxtPrecioValorA2" type="number" min="0" max="99999999999" />
+    </div>
+    <br />
+    <div class="col-sm-6" style="font-size:smaller">
+        <label>Precio valor año 3:</label>
+        <input id="TxtPrecioValorA3" name="TxtPrecioValorA4" type="number" min="0" max="99999999999" />
+        <br />
+        <label>Precio valor año 4:</label>
+        <input id="TxtPrecioValorA4" name="TxtPrecioValorA4" type="number" min="0" max="99999999999" />
+        <br />
+        <label>Precio valor año 5:</label>
+        <input id="TxtPrecioValorA5" name="TxtPrecioValorA5" type="number" min="0" max="99999999999" />
+    </div>
+</div>
+<div class="row">
+    <br />
+    <div class="col-sm-6" style="font-size:smaller">
+        <label>Otro si:</label>
+        <input id="ChkOtroSi" name="ChkOtroSi" type="checkbox" />
+        <label>¿Vigencia?:</label>
+        <input id="ChkVigencia" name="ChkVigencia" type="checkbox" />
+    </div>
+    <br />
+    <div class="col-sm-6" style="font-size:smaller">
+        <label> Estatal:</label>
+        <input id="TxtEstatal" name="TxtEstatal" type="checkbox" />
+        <label> Asignación presupuestal COP $:</label>
+        <input id="TxtAsignacionPres" name="TxtAsignacionPres" type="number" min="0" max="999999999999" />
+        <label> No de contrato:</label>
+        <input id="TxtRubroPresupuestal" type="text" min="0" max="30" />
+        <label> Certificado disponibilidad respuestal:</label>
+        <input id="TxtCertificadoDisponible" type="text" maxlength="30" />
+    </div>
+    <br />
+    <div class="col-sm-6" style="font-size:smaller" hidden>
+        <label> Acta Fecha Inicio:</label>
+        <input id="FechaActaFechaInicioP" name="FechaActaFechaInicioP" type="date" /><br />
+        <label> Total Adiciones:</label>
+        <input id="TxtTotalAdicionesP" type="number" min="0" max="999999999999" /><br />
+        <label> Total prorroga meses:</label>
+        <input id="TxtTotalProrrogaMesesP" type="number" min="0" max="180" />
+    </div>
+    <br />
+    <div class="col-sm-6" style="font-size:smaller">
+        <label> Número de factura inicial:</label>
+        <input id="TxtFacturaInicialP" name="TxtFacturaInicialP" type="text" />
+        <label> Número de factura final:</label>
+        <input id="TxtFacturaFinalP" name="TxtFacturaFinalP" type="text" /><br />
+        <label> ID:</label>
+        <input id="TxtIDP" type="text" min="0" max="99999999" />
+        <label> Serial:</label>
+        <input id="TxtSerialP" name="TxtSerialP" type="text" maxlength="15" />
+    </div>
+    <br />
+</div>
+<div class="row">
+    <button id="BtnAlmacenaPrecio" class="btn" name="BtnAlmacenaPrecio" style="background-color:blueviolet;width:50%;margin-left:25%" disabled><i class="fa fa-save" > Almacenar Precio</i></button>
+</div>

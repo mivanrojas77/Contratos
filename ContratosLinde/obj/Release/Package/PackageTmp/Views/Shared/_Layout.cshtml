@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang='es-CO'> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang='es-CO'> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang='es-CO'> <![endif]-->
+<!--[if IE 9]>    <html class="no-js ie9" lang='es-CO'> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js" lang='es-CO'>
+<!--<![endif]-->
+
+<head>
+    <title>Inicio | Linde Colombia</title>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=EDGE" />
+</head>
+<body>
+    <div class="container body-content" style="padding-left:8em;">
+        <header>
+            <div style="width:100%;height:10%">
+                <a href="https://www.linde.co/">
+                    <img src="~/Assets/img/header.png" width="90%" height="50%"/>
+                </a>
+            </div>
+        </header>
+        @RenderBody()
+        <hr />
+        <footer>
+            <div style="width:100%;height:10%">
+                <a href="https://www.linde.co/">
+                    <img src="~/Assets/img/Footer.png" width="90%" height="50%" />
+                </a>
+            </div>
+        </footer>
+    </div>
+
+    @Styles.Render("~/Content/Site.css") 
+    @RenderSection("scripts", required: false)
+</body>
+</html>

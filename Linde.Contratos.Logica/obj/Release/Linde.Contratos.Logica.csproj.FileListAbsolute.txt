@@ -1,0 +1,17 @@
+C:\Proyectos\Praxair\Contratos\Fuentes\Contratos\Linde.Contratos.Logica\bin\Release\Linde.Contratos.Logica.dll.config
+C:\Proyectos\Praxair\Contratos\Fuentes\Contratos\Linde.Contratos.Logica\bin\Release\Linde.Contratos.Logica.dll
+C:\Proyectos\Praxair\Contratos\Fuentes\Contratos\Linde.Contratos.Logica\bin\Release\Linde.Contratos.Logica.pdb
+C:\Proyectos\Praxair\Contratos\Fuentes\Contratos\Linde.Contratos.Logica\bin\Release\Oracle.ManagedDataAccess.dll
+C:\Proyectos\Praxair\Contratos\Fuentes\Contratos\Linde.Contratos.Logica\obj\Release\Linde.Contratos.Logica.csprojAssemblyReference.cache
+C:\Proyectos\Praxair\Contratos\Fuentes\Contratos\Linde.Contratos.Logica\obj\Release\Linde.Contratos.Logica.csproj.CoreCompileInputs.cache
+C:\Proyectos\Praxair\Contratos\Fuentes\Contratos\Linde.Contratos.Logica\obj\Release\Linde.Contratos.Logica.csproj.CopyComplete
+C:\Proyectos\Praxair\Contratos\Fuentes\Contratos\Linde.Contratos.Logica\obj\Release\Linde.Contratos.Logica.dll
+C:\Proyectos\Praxair\Contratos\Fuentes\Contratos\Linde.Contratos.Logica\obj\Release\Linde.Contratos.Logica.pdb
+C:\Users\c7ss74\Downloads\Contratos_v2\Contratos\Linde.Contratos.Logica\bin\Release\Linde.Contratos.Logica.dll.config
+C:\Users\c7ss74\Downloads\Contratos_v2\Contratos\Linde.Contratos.Logica\bin\Release\Linde.Contratos.Logica.dll
+C:\Users\c7ss74\Downloads\Contratos_v2\Contratos\Linde.Contratos.Logica\bin\Release\Linde.Contratos.Logica.pdb
+C:\Users\c7ss74\Downloads\Contratos_v2\Contratos\Linde.Contratos.Logica\bin\Release\Oracle.ManagedDataAccess.dll
+C:\Users\c7ss74\Downloads\Contratos_v2\Contratos\Linde.Contratos.Logica\obj\Release\Linde.Contratos.Logica.csproj.AssemblyReference.cache
+C:\Users\c7ss74\Downloads\Contratos_v2\Contratos\Linde.Contratos.Logica\obj\Release\Linde.Contratos.Logica.csproj.CoreCompileInputs.cache
+C:\Users\c7ss74\Downloads\Contratos_v2\Contratos\Linde.Contratos.Logica\obj\Release\Linde.Contratos.Logica.dll
+C:\Users\c7ss74\Downloads\Contratos_v2\Contratos\Linde.Contratos.Logica\obj\Release\Linde.Contratos.Logica.pdb

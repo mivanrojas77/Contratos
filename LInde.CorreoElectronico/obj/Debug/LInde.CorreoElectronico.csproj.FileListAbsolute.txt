@@ -1,0 +1,6 @@
+C:\Users\c7ss74\Downloads\Contratos_v2\Contratos\LInde.CorreoElectronico\bin\Debug\LInde.CorreoElectronico.dll
+C:\Users\c7ss74\Downloads\Contratos_v2\Contratos\LInde.CorreoElectronico\bin\Debug\LInde.CorreoElectronico.pdb
+C:\Users\c7ss74\Downloads\Contratos_v2\Contratos\LInde.CorreoElectronico\obj\Debug\LInde.CorreoElectronico.csproj.AssemblyReference.cache
+C:\Users\c7ss74\Downloads\Contratos_v2\Contratos\LInde.CorreoElectronico\obj\Debug\LInde.CorreoElectronico.csproj.CoreCompileInputs.cache
+C:\Users\c7ss74\Downloads\Contratos_v2\Contratos\LInde.CorreoElectronico\obj\Debug\LInde.CorreoElectronico.dll
+C:\Users\c7ss74\Downloads\Contratos_v2\Contratos\LInde.CorreoElectronico\obj\Debug\LInde.CorreoElectronico.pdb

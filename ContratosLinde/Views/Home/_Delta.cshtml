@@ -1,0 +1,57 @@
+﻿<style>
+    .centerDelta {
+        margin: auto;
+        width: 15%;
+        padding: 10px;
+    }
+</style>
+
+
+<div class="row">
+    <div class="col-sm-6" style="font-size:smaller">
+        <label>∆EE:</label>
+        <input id="TxtEE" type="number" min="0" max="100" />
+        <br />
+        <label>∆IPC:</label>
+        <input id="TxtIpx" type="number" min="0" max="100" />
+        <br />
+        <label>∆Diesel:</label>
+        <input id="TxtDiesel" type="number" min="0" max="100" />
+    </div>
+    <br />
+    <div class="col-sm-6" style="font-size:smaller">
+        <label>∆IPP:</label>
+        <input id="TxtIPP" type="number" min="0" max="100" />
+        <br />
+        <label>∆Gas:</label>
+        <input id="TxtGas" type="number" min="0" max="100" />
+        <br />
+        <label>∆TRM:</label>
+        <input id="TxtTRM" type="number" min="0" max="100" />
+        <br />
+        <label>∆Otros:</label>
+        <input id="TxtOtros" type="number" min="0" max="100" />
+    </div>
+    <br />
+    <div class="col-sm-6" style="font-size:smaller">
+        <label>Formula Precio: Pf=P0(1+0,85∆EE+0,15∆IPC)</label>
+        <label>Diesel:</label>
+        <input id="TxtVDiesel" type="number" min="0" max="100" />
+        <br />
+        <label>IPC:</label>
+        <input id="TxtIPC2" type="number" min="0" max="100" />
+        <br />
+        <label>USD:</label>
+        <input id="TxtUSD3" type="number" min="0" max="100" />
+        <br />
+        <label>Energia:</label>
+        <input id="TxtEnergia" type="number" min="0" max="100" />
+        <br />
+        <label>Otros:</label>
+        <input id="TxtVOtros" type="number" min="0" max="100" />
+    </div>
+    <br />
+</div>
+<div class="row " style="font-size:smaller">
+    <button id="BtnAlmacenaDelta" class="btn" name="BtnAlmacenaDelta" style="background-color:blueviolet; width:50%;margin-left:25%;" disabled><i class="fa fa-save"> Almacenar delta</i></button>
+</div>

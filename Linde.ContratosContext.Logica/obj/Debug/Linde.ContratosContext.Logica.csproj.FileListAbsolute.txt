@@ -1,0 +1,8 @@
+C:\Users\c7ss74\Downloads\Contratos_v2\Contratos\Linde.ContratosContext.Logica\obj\Debug\Linde.ContratosContext.Logica.csproj.CoreCompileInputs.cache
+C:\Users\c7ss74\Downloads\Contratos_v2\Contratos\Linde.ContratosContext.Logica\bin\Debug\Linde.ContratosContext.Logica.dll.config
+C:\Users\c7ss74\Downloads\Contratos_v2\Contratos\Linde.ContratosContext.Logica\bin\Debug\Linde.ContratosContext.Logica.dll
+C:\Users\c7ss74\Downloads\Contratos_v2\Contratos\Linde.ContratosContext.Logica\bin\Debug\Linde.ContratosContext.Logica.pdb
+C:\Users\c7ss74\Downloads\Contratos_v2\Contratos\Linde.ContratosContext.Logica\bin\Debug\Oracle.ManagedDataAccess.dll
+C:\Users\c7ss74\Downloads\Contratos_v2\Contratos\Linde.ContratosContext.Logica\obj\Debug\Linde.ContratosContext.Logica.dll
+C:\Users\c7ss74\Downloads\Contratos_v2\Contratos\Linde.ContratosContext.Logica\obj\Debug\Linde.ContratosContext.Logica.pdb
+C:\Users\c7ss74\Downloads\Contratos_v2\Contratos\Linde.ContratosContext.Logica\obj\Debug\Linde.ContratosContext.Logica.csproj.AssemblyReference.cache

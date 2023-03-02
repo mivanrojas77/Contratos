@@ -1,0 +1,37 @@
+﻿<div class="col-sm-6" style="font-size:smaller">
+    <label> Acta Fecha Inicio:</label>
+    <input id="FechaActaFechaInicioPos" name="FechaActaFechaInicioPos" type="text" /><br />
+    <label> Total Adición en dinero:</label>
+    <input id="TxtTotalAdicionesPos" type="number" min="0" max="999999999999" /><br />
+    <label> Total prorroga en dias:</label>
+    <input id="TxtTotalProrrogaMesesPos" type="number" min="0" max="1800" />
+</div>
+
+<div class="row">
+    <div class="col-sm-12" style="font-size:smaller">
+        <div id="ContenidoOtroSi" style="background-color:darkgray ; margin-left:3% ;width: 95%; height:300px; overflow: scroll;">
+            <table id="datOtroSi" class="display dt-table" style="width:100%; font-size:11px">
+                <thead>
+                    <tr>
+                        <th style="width:10%;">Id</th>
+                        <th style="width:50%;">Fecha</th>
+                        <th style="width:10%;">Total Monto</th>
+                        <th style="width:10%;">Total Tiempo</th>
+                        <th style="width:10%;">Acciones</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-6" style="font-size:smaller">
+    <label> Total Prorroga acumulada en dinero:</label>
+    <input id="TxtProTotalAdicionesPos" type="number" min="0" max="999999999999" /><br />
+    <label> Total prorroga acumulado en dias:</label>
+    <input id="TxtProTotalProrrogaMesesPos" type="number" min="0" max="1800" />
+</div>
+
+<div class="row">
+    <button id="BtnAlmacenaOtroSi" class="btn" name="BtnAlmacenaOtroSi" style="background-color:blueviolet;width:50%;margin-left:25%" disabled><i class="fa fa-save"> Almacenar Otro Si</i></button>
+</div>

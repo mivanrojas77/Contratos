@@ -1,0 +1,2217 @@
+﻿@{
+    ViewBag.Title = "Contratos Linde";
+}
+<style>
+    .center {
+        margin: auto;
+        width: 60%;
+        padding: 10px;
+    }
+
+    .centerPlus {
+        margin: auto;
+        width: 50%;
+        padding: 10px;
+    }
+</style>
+<link rel="stylesheet" href="~/Content/Pestanas.css" />
+<link rel="stylesheet" href="~/Content/w3.css" />
+
+<div class="row center">
+    <div class="col-md-3">
+        <h3>CONTRATOS</h3>
+    </div>
+    <div class="col-md-6">
+
+    </div>
+    <div class="col-md-3">
+        <h3>@User.Identity.Name</h3>
+    </div>
+
+</div>
+<hr />
+<div class="row">
+    <label style="margin:10px">Compañia:</label>
+    <select name="CboCompania" id="CboCompania" style="margin-right:15px">
+        <option value="-1">Seleccione</option>
+        <option value="21">Oxigenos de colombia - Coox</option>
+        <option value="22">Gas Carbónico - Copg</option>
+        <option value="25">Liquidos - Colc</option>
+    </select>
+    <label style="margin:5px">Tipo Cliente:</label>
+    <select name="CboTipoCliente" id="CboTipoCliente" style="margin-right:10px">
+        <option value="-1">Seleccione</option>
+        <option value="1">INDUSTRIAL LIQUIDOS</option>
+        <option value="2">INSTITUCIONAL PRIVADO</option>
+    </select>
+</div>
+<hr />
+<div class="row">
+    <label style="margin:10px">Cliente:</label>
+    <input type="text" id="TxtCliente" max="30" onfocus="ValidarCliente()" style="margin-right:15px; width:50%" />
+    <label style="margin:5px">Identificación:</label>
+    <input id="TxtIdentificacion" style="width:50%" maxlength="15" />
+    <button type="button" id="BtnBuscar" class="btn" style="background-color:indigo; color:white; margin-left:15px"><i class="fa fa-search "></i> Buscar</button>
+    <button type="button" id="BtnNuevo" class="btn" style="background-color:indigo; color:white; margin-left:15px" onclick="NuevoRegisro()"><i class="fa fa-newspaper-o"></i> Nuevo</button>
+</div>
+<hr />
+<div class="row">
+    <span id="TxtNumeroContrato"></span>
+</div>
+<div class="row">
+    <span id="TxtNumeroContratoDetalle"></span>
+</div>
+<div class="row">
+    <button type="button" id="BtnNuevoProducto" class="btn" style="background-color:indigo; color:white; margin-left:15px" onclick="NuevoContrato()" disabled><i class="fa fa-product-hunt"></i> Nuevo</button>
+</div>
+<hr />
+<div class="tab" style="width:90%">
+    <button class="tablinks" id="BtnAnexos" onclick="openTab(event, 'Anexos')">Anexos</button>
+    <button class="tablinks" id="BtnDetalle" onclick="openTab(event, 'Detalle')">Detalle</button>
+    <button class="tablinks" id="BtnDelta" onclick="openTab(event, 'Delta')">Deltas</button>
+    <button class="tablinks" id="BtnPrecio" onclick="openTab(event, 'Precio')">Precio</button>
+    <button class="tablinks" id="BtnOtroSi" onclick="openTab(event, 'OtroSi')">Otro Si</button>
+    <button class="tablinks" id="BtnAlertas" onclick="openTab(event, 'Alertas')">Alertas</button>
+    <button class="tablinks" id="BtnAutorizaciones" onclick="openTab(event, 'Autorizaciones')">Autorizaciones</button>
+    <button class="tablinks" id="BtnInforme" onclick="openTab(event, 'Informes')">Informes</button>
+</div>
+
+<div id="Anexos" class="tabcontent" style="width:90%">
+    @Html.Partial("_Anexos")
+</div>
+
+<div id="Detalle" class="tabcontent" style="width:90%">
+    @Html.Partial("_Detalle")
+</div>
+
+<div id="Delta" class="tabcontent" style="width:90%">
+    @Html.Partial("_Delta")
+</div>
+
+<div id="Precio" class="tabcontent" style="width:90%">
+    @Html.Partial("_Precio")
+</div>
+
+<div id="OtroSi" class="tabcontent" style="width:90%">
+    @Html.Partial("_OtroSi")
+</div>
+
+<div id="Alertas" class="tabcontent" style="width:90%">
+    @Html.Partial("_Alertas")
+</div>
+
+<div id="Autorizaciones" class="tabcontent" style="width:90%">
+    @Html.Partial("_Autortizaciones")
+</div>
+
+<div id="Informes" class="tabcontent" style="width:90%">
+    @Html.Partial("_Informe")
+</div>
+
+<!--Zona de popups-->
+
+<div class="modal fade" id="DivClonacion">
+    <div class="modal-dialog" >
+        <div class="modal-content" style="width:900px;font-size:small">
+            <div class="modal-header">
+                <h5 class="modal-title">Contratos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <label style="margin:10px">Compañia:</label>
+                    <select name="CboCompaniaClo" id="CboCompaniaClo" style="margin-right:15px">
+                        <option value="-1">Seleccione</option>
+                        <option value="21">Oxigenos de colombia - Coox</option>
+                        <option value="22">Gas Carbónico - Copg</option>
+                        <option value="25">Liquidos - Colc</option>
+                    </select>
+                    <label style="margin:5px">Tipo Cliente:</label>
+                    <select name="CboTipoClienteClo" id="CboTipoClienteClo" style="margin-right:10px">
+                        <option value="-1">Seleccione</option>
+                        <option value="1">INDUSTRIAL LIQUIDOS</option>
+                        <option value="2">INSTITUCIONAL PRIVADO</option>
+                    </select>
+                </div>
+                <br />
+                <div class="row">
+                    <label style="margin:10px">Cliente:</label>
+                    <input type="text" id="TxtClienteClo" max="30" onfocus="ValidarClienteClo()" style="margin-right:15px; width:50%" />
+                    <label style="margin:5px">Identificación:</label>
+                    <input id="TxtIdentificacionClo" style="width:50%" maxlength="15" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="BtnAceptarClonacion" class="btn btn-default alert-info" style="background-color:indigo; color:white" data-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="DivMensaje">
+    <div class="modal-dialog" style="width:450px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Contratos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-10" style="margin:15px">
+                        <span id="TxtPreguntaModal"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="BtnAceptarMensaje" class="btn btn-default alert-info" style="background-color:indigo; color:white" data-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="DivMensajePregunta">
+    <div class="modal-dialog" style="width:450px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Contratos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-10" style="margin:15px">
+                        <span id="TxtPreguntaModalP"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="BtnAceptarMensajeP" class="btn btn-default alert-info" style="background-color:indigo; color:white" data-dismiss="modal">Aceptar</button>
+                <button type="button" id="BtnCancelarMensajeP" class="btn btn-default alert-info" style="background-color:indigo; color:white" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="DivMensajePreguntaCerrar">
+    <div class="modal-dialog" style="width:450px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Contratos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-10" style="margin:15px">
+                        <span id="SpanTipo"hidden></span>
+                        <span id="TxtPreguntaModalPCerrar"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="BtnAceptarMensajePCerrar" class="btn btn-default alert-info" style="background-color:indigo; color:white" data-dismiss="modal">Aceptar</button>
+                <button type="button" id="BtnCancelarMensajePCerrar" class="btn btn-default alert-info" style="background-color:indigo; color:white" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="DivMensajePreguntaD">
+    <div class="modal-dialog" style="width:450px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Contratos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-10" style="margin:15px">
+                        <span id="TxtPreguntaModalPD"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="BtnAceptarMensajePD" class="btn btn-default alert-info" style="background-color:indigo; color:white" data-dismiss="modal">Aceptar</button>
+                <button type="button" id="BtnCancelarMensajePD" class="btn btn-default alert-info" style="background-color:indigo; color:white" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="DivBusqueda">
+    <div class="modal-dialog">
+        @*<div class="modal-content" style="align-content:flex-start; width: 950px; margin-left:10px">*@
+        <div class="modal-content" style="width: 900px; margin-left:10px">
+            <div class="modal-header">
+                <h3 class="modal-title" style="font-size: 100%;font-weight:normal;text-align: center;">Búsqueda</h3>
+            </div>
+            <div class="modal-body" style="font-size: x-small">
+                <div class="row" style="margin-left:10px">
+                    <div class="col-10">
+                        <table id="TabBusqueda" class="table table-striped table-bordered" style="width:95%; margin-left:5px">
+                            <thead>
+                                <tr>
+                                    <th>Contrato</th>
+                                    <th>Fecha</th>
+                                    <th>Contraro Producto</th>
+                                    <th>Producto</th>
+                                    <th>Buscar detalle</th>
+                                    <th>Adicionar</th>
+                                    <th>Alertas</th>
+                                    <th>Inactivar</th>
+                                    <th>Cierre</th>
+                                    <th>Clonar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" id="BtnAceptarBusqueda" class="btn alert-info" style="background-color:green; color:white" data-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="DivBusquedaAlertas">
+    <div class="modal-dialog">
+        <div class="modal-content" style="align-content:center; width: 750px;">
+            <div class="modal-header">
+                <h3 class="modal-title" style="font-size: 100%;font-weight:normal;text-align: center;">Búsqueda</h3>
+            </div>
+            <div class="modal-body" style="font-size: x-small">
+                <div class="row" style="margin-left:10px">
+                    <div class="col-10">
+                        <table id="TabBusquedaAlerta" class="table table-striped table-bordered" style="width:95%; margin-left:5px">
+                            <thead>
+                                <tr>
+                                    <th>Contrato</th>
+                                    <th>Fecha</th>
+                                    <th>Contraro Producto</th>
+                                    <th>Tipo contrato</th>
+                                    <th>detalle</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" id="BtnAceptarBusquedaAlertas" class="btn alert-info" style="background-color:green; color:white" data-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts{
+
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/css/font-awesome.min.css" rel="stylesheet" />
+
+
+    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="~/Scripts/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+        var proxy = '';
+        var _usuario = '';
+        var myVar = '';
+        var _numero = -1;
+        var _numeroContrato = 0;
+        var _numeroContratoProducto = 0;
+        var _numeroContratoClo = 0;
+        var _numeroContratoProductoClo = 0;
+        var _archivo = '';
+        var _vContratoCerrar = 0;
+        var _vProducto = 0;
+        var esInhabilitado = false;
+
+        $(document).ready(function () {
+            _usuario = '@User.Identity.Name';
+            if (_usuario.length > 0) 
+                _usuario = _usuario.replace("LINDE", "");
+             //_usuario = 'COLTMIR1';
+             FormatoFecha('#TxtFechaInicioDetalle');
+             FormatoFecha('#TxtFechaFirmado');
+             FormatoFecha('#TxtFechaFinalizacion');
+             FormatoFecha('#TxtFechaFinalizacionPr');
+             FormatoFecha('#TxtInicioSuministro');
+            FormatoFecha('#FechaActaFechaInicioPos');
+            Permisos();
+         });
+
+
+        function Permisos() {
+            _usuario = 'LINDE\\c7ss74';
+            var b = $.post(myVar + '/Home/ObtenerRol', { dominio: '', usuario: _usuario }, function (dat) {
+                //debugger;
+                $('#Alertas').prop('disabled', true);
+                $('#Autorizaciones').prop('disabled', true);
+
+                $('#Alertas').css('visibility', 'hidden');
+                $('#Autorizaciones').css('visibility', 'hidden');
+
+                $('#BtnAlertas').prop('disabled', true);
+                $('#BtnAutorizaciones').prop('disabled', true);
+
+                $('#BtnAlertas').css('visibility', 'hidden');
+                $('#BtnAutorizaciones').css('visibility', 'hidden');
+
+                debugger;
+                if (esInhabilitado) {
+                    InHabilitar();
+                }
+                if (dat == 1)
+                    Habilitar();
+                else if (dat == 2) {
+                    $('#Alertas').prop('disabled', false);
+                    $('#Alertas').css('visibility', 'visible');
+                    $('#BtnAlertas').prop('disabled', false);
+                    $('#BtnAlertas').css('visibility', 'visible');
+                    $('#BtnAlmacenaPrecio').prop('disabled', false);
+                    $('#BtnAlmacenaDelta').prop('disabled', false);
+                    Habilitar();
+                }
+                else if(dat == 3){
+                    $('#Alertas').prop('disabled', false);
+                    $('#Alertas').css('visibility', 'visible');
+                    $('#BtnAlertas').prop('disabled', false);
+                    $('#BtnAlertas').css('visibility', 'visible');
+                    $('#Autorizaciones').prop('disabled', false);
+                    $('#Autorizaciones').css('visibility', 'visible');
+                    $('#BtnAutorizaciones').prop('disabled', false);
+                    $('#BtnAutorizaciones').css('visibility', 'visible');
+                    $('#BtnInforme').prop('disabled', false);
+                    $('#BtnInforme').css('visibility', 'visible');
+                    $('#BtnAlmacenaPrecio').prop('disabled', false);
+                    $('#BtnAlmacenaDelta').prop('disabled', false);
+                    Habilitar();
+                }
+            });
+
+        }
+
+
+        function FormatoFecha(objeto) {
+            $(objeto).datepicker();
+            $(objeto).datepicker("option", "dateFormat", 'dd/mm/yy');
+        }
+
+        function InitContrato() {
+            var contrato = {};
+            var now = new Date();
+            now.setDate(now.getDate() + 30);
+
+            var dat = now.getDate();
+            var mon = now.getMonth();
+            var year = now.getFullYear();
+            var todayDate = dat + "/" + mon + "/" + year;
+
+            contrato.Id_contrato = 0
+            contrato.Fecha_registro = todayDate;
+            contrato.Id_cliente = "";
+            contrato.Producto = -1;
+            contrato.Consumo_contratado = -1;
+            contrato.Precio_producto = -1;
+            contrato.C_top = false;
+            contrato.Top = -1;
+            contrato.Escalado = false;
+            contrato.Cantidad_escalado = -1;
+            contrato.Precio_escalado = -1;
+            contrato.Periodicidad = -1;
+            contrato.Alquiler_tanques = false;
+            contrato.Arriendo_equipo = false;
+            contrato.Canon_arrendamiento = -1;
+            contrato.Fecha_inicio = -1;
+            contrato.Fecha_firmado = -1;
+            contrato.Fecha_finalizacion = -1;
+            contrato.Garantia = "";
+            contrato.Firmado_por = -1;
+            contrato.Fecha_finaliza_pro = '01-01-1900';
+            contrato.Aviso_terminacion_con = -1;
+            contrato.Inicio_suministro = -1;
+            contrato.Condiciones_especiales = '';
+            contrato.Vigencia_meses = -1;
+            contrato.Vigencia_auto_meses = -1;
+            contrato.Tiempo_espera_trac = false;
+            contrato.Horas_min_espera = -1;
+            contrato.Contrato_comodato = false;
+            contrato.Plazo_pago_dias = -1;
+            contrato.Multa_vencimiento_fac = false;
+            contrato.Porcentaje_multa = -1;
+            contrato.Aumento_precio = -1;
+            return contrato;
+        }
+
+        function openTab(evt, cityName) {
+            //debugger;
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        function ValidarCliente() {
+            var mensaje = '';
+            var empresa = $('#CboCompania').val();
+            var tipoCli = $('#CboTipoCliente').val();
+
+            if (empresa == -1) {
+                mensaje += 'Debe seleccionar compañía.\n ';
+            }
+
+            if (tipoCli == -1) {
+                mensaje += 'Debe seleccionar tipo cliente. \n ';
+            }
+
+
+            if (mensaje != '') {
+                $('#TxtPreguntaModal').text(mensaje);
+                $('#DivMensaje').modal({ show: true });
+            }
+        }
+
+        function ValidarClienteClo() {
+            var mensaje = '';
+            var empresa = $('#CboCompaniaClo').val();
+            var tipoCli = $('#CboTipoClienteClo').val();
+
+            if (empresa == -1) {
+                mensaje += 'Debe seleccionar compañía.\n ';
+            }
+
+            if (tipoCli == -1) {
+                mensaje += 'Debe seleccionar tipo cliente. \n ';
+            }
+
+
+            if (mensaje != '') {
+                $('#TxtPreguntaModal').text(mensaje);
+                $('#DivMensaje').modal({ show: true });
+            }
+        }
+
+        function NuevoRegisro() {
+            esInhabilitado = false;
+            var vCompania = $('#CboCompania').val();
+            var vTipoCliente = $('#CboTipoCliente').val();
+            var vCliente = $('#TxtCliente').val();
+
+            var mensajeValidacion = '';
+
+            if (vCompania == -1) {
+                mensajeValidacion += '<p>La compañía es obligatoria en el contexto de creacion de contratos</p>'
+            }
+
+            if (vTipoCliente == -1) {
+                mensajeValidacion += '<p>El tipo de cliente es obligatorio en el contexto de creacion de contratos</p>'
+            }
+
+            if (vCliente == '') {
+                mensajeValidacion += '<p>La identificación del cliente es obligatorio en el contexto de creacion de contratos</p>'
+            }
+
+            if (mensajeValidacion != '') {
+                $('#TxtPreguntaModalP').html(mensajeValidacion );
+                $('#DivMensajePregunta').modal({ show: true });
+            }
+            else {
+                var mensaje = '<p>¿Está seguro que desea crear un registro nuevo?, de ser así la información que no se ha guardado se perderá</p>'
+                $('#TxtPreguntaModalPD').html(mensaje);
+                $('#DivMensajePreguntaD').modal({show: true });
+            }
+        }
+
+        function NuevoContrato() {
+            esInhabilitado = false;
+            if (_numeroContrato != 0) {
+                var b = $.post(myVar + '/Home/GuardarContrato', { IdMaestro: _numeroContrato }, function (dat) {
+                    if (dat != '-1') {
+                        _numeroContratoProducto = dat;
+                        var mensaj = '<p>Número de contrato-producto : ' + _numeroContratoProducto + ' </p>'
+                        $('#TxtNumeroContratoDetalle').html(mensaj);
+                        $('#BtnNuevoProducto').prop('disabled', false);
+                        $('#BtnAlmacenaDetalle').prop('disabled', false);
+                        $('#BtnAlmacenaAnexos').prop('disabled', false);
+                        $('#BtnAlmacenaDelta').prop('disabled', false);
+                        $('#BtnAlmacenaPrecio').prop('disabled', false);
+                        $('#BtnAlmacenaOtroSi').prop('disabled', false);
+                    }
+                    else {
+                        mensajeValidacion = '<p>Existen problemas al generar el consecutivo del contrato, por favor vuelva a intentarlo</p>'
+                        $('#TxtPreguntaModalP').html(mensajeValidacion);
+                        $('#DivMensajePregunta').modal({ show: true });
+                    }
+                });
+            }
+            else {
+                $('#TxtPreguntaModal').html('<p>No es posible crear el número de producto contrato. Antes se debe crear un número de contrato</p>');
+                $('#DivMensaje').modal({ show: true });
+            }
+        }
+
+        $('#BtnAceptarMensajePD').on('click', function () {
+            var vCompania = $('#CboCompania').val();
+            var vTipoCliente = $('#CboTipoCliente').val();
+            var vCliente = $('#TxtCliente').val();
+            var identificacion = $('#TxtIdentificacion').val();
+            var vCorreo = $('#TxtCorreo').val();
+
+            var a = $.post(myVar + '/Home/GuardarCOntratoMaestro', { compania: vCompania, tipoCliente: vTipoCliente, idCliente: vCliente, identificacion: identificacion, correo : vCorreo }, function (data) {
+                _numeroContrato = data;
+                var mensaje = '<p>Número de contrato: ' + _numeroContrato + ' </p>'
+                $('#TxtNumeroContrato').html(mensaje);
+
+                var b = $.post(myVar + '/Home/GuardarContrato', { IdMaestro: _numeroContrato }, function (dat) {
+                    _numeroContratoProducto = dat;
+                    var mensaj = '<p>Número de contrato-producto : ' + _numeroContratoProducto + ' </p>'
+                    $('#TxtNumeroContratoDetalle').html(mensaj);
+                    $('#BtnNuevoProducto').prop('disabled', false);
+                    $('#BtnAlmacenaDetalle').prop('disabled', false);
+                    $('#BtnAlmacenaAnexos').prop('disabled', false);
+                    $('#BtnAlmacenaDelta').prop('disabled', false);
+                    $('#BtnAlmacenaPrecio').prop('disabled', false);
+                    $('#BtnAlmacenaOtroSi').prop('disabled', false);
+
+                });
+                LimpiarDetalle();
+                LimpiarDelta();
+                LimpiarPrecio();
+                Habilitar();
+            });
+        });
+
+        function LimpiarDetalle() {
+            InitTexto($('#CboProducto'));
+            InitTexto($('#TxtPrecio'));
+            InitCheck($('#ChkEscalado'));
+            InitTexto($('#TxtEscalado'));
+            InitTexto($('#TxtPrecioEscalado'));
+            InitTexto($('#TxtConsumoContratado'));
+            InitCheck($('#ChkClausulaToP'));
+            InitTexto($('#TxToP'));
+            InitCombo($('#CboPeriodicidadTop'));
+            InitCheck($('#ChkAlguienTanques'));
+            InitCheck($('#ChkArrendamientoEq'));
+            InitTexto($('#TxtCanonArriendo'));
+            InitTexto($('#TxtGarantia'));
+            InitCombo($('#CboFirmadoPor'));
+            InitTexto($('#TxtFechaInicioDetalle'));
+            InitTexto($('#TxtFechaFirmado'));
+            InitTexto($('#TxtFechaFinalizacion'));
+            InitTexto($('#TxtFechaFinalizacionPr'));
+            InitTexto($('#TxtInicioSuministro'));
+            InitTexto($('#TxtVigenciaMeses'));
+            InitTexto($('#TxtVigenciaAutoMeses'));
+            InitTexto($('#TxtTerminacionCon'));
+            InitTexto($('#TxtCondicionesEsp'));
+            InitCheck($('#ChkClausulaTracto'));
+            InitTexto($('#TxtHorasMinimasEsp'));
+            InitCheck($('#ChkContratoComodato'));
+            InitTexto($('#TxtPlazoPagoDias'));
+            InitCheck($('#ChkMultaVencimiento'));
+            InitTexto($('#TxtPorcentajeMulta'));
+            InitTexto($('#TxtAumentoPrecios'));
+            return true;
+        }
+
+        function LimpiarDelta() {
+            InitTexto($('#TxtEE'));
+            InitTexto($('#TxtIpx'));
+            InitTexto($('#TxtDiesel'));
+            InitTexto($('#TxtIPP'));
+            InitTexto($('#TxtGas'));
+            InitTexto($('#TxtTRM'));
+            InitTexto($('#TxtOtros'));
+            InitTexto($('#TxtVDiesel'));
+            InitTexto($('#TxtIPC2'));
+            InitTexto($('#TxtUSD3'));
+            InitTexto($('#TxtEnergia'));
+            InitTexto($('#TxtVOtros'));
+        }
+
+        function LimpiarGrillas() {
+            $('#datOtroSi').DataTable().clear().draw();
+            $('#datOtroSi').DataTable().destroy();
+
+            $('#datAnexos').DataTable().clear().draw();
+            $('#datAnexos').DataTable().destroy();
+
+            $('#TabBusqueda').DataTable().clear().draw();
+            $('#TabBusqueda').DataTable().destroy();
+        }
+
+        function LimpiarPrecio() {
+            InitTexto($('#TxtPrecioValorA1'));
+            InitTexto($('#TxtPrecioValorA2'));
+            InitTexto($('#TxtPrecioValorA3'));
+            InitTexto($('#TxtPrecioValorA4'));
+            InitTexto($('#TxtPrecioValorA5'));
+            InitCheck($('#ChkOtroSi'));
+            InitCheck($('#ChkVigencia'));
+            InitTexto($('#TxtEstatal'));
+            InitTexto($('#TxtAsignacionPres'));
+            InitTexto($('#TxtRubroPresupuestal'));
+            InitTexto($('#TxtCertificadoDisponible'));
+            InitTexto($('#FechaActaFechaInicioP'));
+            InitTexto($('#TxtTotalAdicionesP'));
+            InitTexto($('#TxtTotalProrrogaMesesP'));
+            InitTexto($('#TxtFacturaInicialP'));
+            InitTexto($('#TxtFacturaFinalP'));
+            InitTexto($('#TxtIDP'));
+            InitTexto($('#TxtSerialP'));
+        }
+
+        function InitCombo(combo) {
+            combo.prop('value', -1);
+        }
+
+        function InitTexto(texto) {
+            texto.prop('value', '');
+        }
+
+        function InitCheck(check) {
+            check.prop('checked', false);
+        }
+
+        $('#BtnAlmacenaPrecio').on('click', function () {
+            var TxtPrecioValorA1 = $('#TxtPrecioValorA1').val();
+            var TxtPrecioValorA2 = $('#TxtPrecioValorA2').val();
+            var TxtPrecioValorA3 = $('#TxtPrecioValorA3').val();
+            var TxtPrecioValorA4 = $('#TxtPrecioValorA4').val();
+            var TxtPrecioValorA5 = $('#TxtPrecioValorA5').val();
+            var ChkOtroSi = $('#ChkOtroSi').prop('checked');
+            var ChkVigencia = $('#ChkVigencia').prop('checked');
+            var TxtEstatal = $('#TxtEstatal').val();
+            var TxtAsignacionPres = $('#TxtAsignacionPres').val();
+            var TxtRubroPresupuestal = $('#TxtRubroPresupuestal').val();
+            var TxtCertificadoDisponible = $('#TxtCertificadoDisponible').val();
+            var FechaActaFechaInicioP = $('#FechaActaFechaInicioP').val();
+            var TxtTotalAdicionesP = $('#TxtTotalAdicionesP').val();
+            var TxtTotalProrrogaMesesP = $('#TxtTotalProrrogaMesesP').val();
+            var TxtFacturaInicialP = $('#TxtFacturaInicialP').val();
+            var TxtFacturaFinalP = $('#TxtFacturaFinalP').val();
+            var TxtIDP = $('#TxtIDP').val();
+            var TxtSerialP = $('#TxtSerialP').val();
+
+            var a = $.post(myVar + '/Home/GuardarPrecio', { IdMaestro: _numeroContratoProducto, valorAno1: TxtPrecioValorA1, valorAno2: TxtPrecioValorA2, valorAno3: TxtPrecioValorA3, valorAno4: TxtPrecioValorA4, valorAno5: TxtPrecioValorA5, otroSi: ChkOtroSi, vigencia: ChkVigencia, estatal: TxtEstatal, asignacionPresupuestal: TxtAsignacionPres, noRubroPresupuestal: TxtRubroPresupuestal, certificadoDisponible: TxtCertificadoDisponible, actaFechaInicio: FechaActaFechaInicioP, numeroFacturaInicial: TxtFacturaInicialP, totalAdiciones: TxtTotalAdicionesP, totalProrrogaMes: TxtTotalProrrogaMesesP, id: TxtIDP, serial: TxtSerialP }, function (data) {
+                if (data == false) {
+                    $('#TxtPreguntaModal').html|('<p>Exise un problema al almacenar <b>Detalle</b>, por favor valide con el administrador.</p>');
+                    $('#DivMensaje').modal({ show: true });
+                }
+                else {
+                    $('#TxtPreguntaModal').html('Registro almacenado con éxito.');
+                    $('#DivMensaje').modal({ show: true });
+                    $('#BtnNuevoProducto').prop('disabled', false);
+                    _numeroContratoProducto = 0;
+                    LimpiarDelta();
+                    LimpiarDetalle();
+                    LimpiarPrecio();
+                    $('#TxtNumeroContratoDetalle').html('');
+                }
+            });
+
+        });
+
+        $('#BtnAlmacenaDelta').on('click', function(){
+            var TxtEE = $('#TxtEE').val();
+            var TxtIpx = $('#TxtIpx').val();
+            var TxtDiesel = $('#TxtDiesel').val();
+            var TxtIPP = $('#TxtIPP').val();
+            var TxtGas = $('#TxtGas').val();
+            var TxtTRM = $('#TxtTRM').val();
+            var TxtOtros = $('#TxtOtros').val();
+            var TxtVDiesel = $('#TxtVDiesel').val();
+            var TxtIPC2 = $('#TxtIPC2').val();
+            var TxtUSD3 = $('#TxtUSD3').val();
+            var TxtEnergia = $('#TxtEnergia').val();
+            var TxtVOtros = $('#TxtVOtros').val();
+
+            var a = $.post(myVar + '/Home/GuardarDelta', { IdMaestro: _numeroContratoProducto, deltaee: TxtEE, deltaip: TxtIpx, deltadiesel: TxtDiesel, deltaipp: TxtIPP, deltagas: TxtGas, deltatrm: TxtTRM, deltaotros: TxtOtros, disesel: TxtVDiesel, ipc: TxtIPC2, usd: TxtUSD3, energia: TxtEnergia, otros: TxtVOtros }, function (data) {
+                if (data == false) {
+                    $('#TxtPreguntaModal').html('<p>Exise un problema al almacenar <b>Delta</b>, por favor valide con el administrador.</p>');
+                    $('#DivMensaje').modal({ show: true });
+                }
+                else {
+                    $('#TxtPreguntaModal').html('<p>Registro de <b>delta</b> almacenado con éxito.</p>');
+                    $('#DivMensaje').modal({ show: true });
+
+                }
+            });
+        });
+
+        $('#BtnAlmacenaOtroSi').on('click', function () {
+            //debugger;
+            $('#BtnAlmacenaOtroSi').prop('disabled', true);
+            var mensaje = '';
+            var vFechaAct = $('#FechaActaFechaInicioPos').val();
+            var vTotalAdi = $('#TxtTotalAdicionesPos').val();
+            var vTotalPro = $('#TxtTotalProrrogaMesesPos').val();
+
+            if (vFechaAct.length == 0) {
+                mensaje += '<p>La fecha del Acta es oblligatorio.</p>';
+            }
+
+            if (vTotalAdi.length == 0) {
+                mensaje += '<p>El total de la acición es obligatorio, si no lo hay el valor debe ser 0</p>';
+            }
+
+            if (vTotalPro.length == 0) {
+                mensaje += '<p>El total de la prorroga es obligatorio, si no lo hay el valor debe ser 0</p>';
+
+            }
+
+            if (mensaje.length == 0) {
+                var a = $.post(myVar + '/Home/CrearOtroSi', { idContrato: _numeroContratoProducto, fecha: vFechaAct, monto: vTotalAdi, tiempo: vTotalPro}, function (data) {
+                    $('#TxtPreguntaModal').html('<p>Registro de <b>Otro</b> almacenado con éxito.</p>');
+                    $('#DivMensaje').modal({ show: true });
+                    $('#BtnAlmacenaOtroSi').prop('disabled', false);
+                    ObtenerOtroSi(_numeroContratoProducto);
+                    ObtenerSoloDetalle(_numeroContratoProducto);
+
+                });
+            }
+            else {
+                $('#TxtPreguntaModal').html(mensaje);
+                $('#DivMensaje').modal({ show: true });
+            }
+
+        });
+
+        function ObtenerSoloDetalle(id) {
+            var a = $.post(myVar + '/Home/ObtenerDetalle', { contratoProducto: id }, function (d) {
+                //debugger;
+                esInhabilitado = (d.Cerrado == -1);
+                $('#CboProducto').val(d.Producto);
+                $('#TxtPrecio').val(d.Precio_producto);
+                $('#ChkEscalado').prop('checked', d.Escalado);
+                $('#TxtEscalado').val(d.Escalado);
+                $('#TxtPrecioEscalado').val(d.Precio_escalado);
+                $('#TxtConsumoContratado').val(d.Consumo_contratado);
+                $('#ChkClausulaToP').prop('checked', d.C_top);
+                $('#TxToP').val(d.Top);
+                $('#CboPeriodicidadTop').val(d.Periodicidad);
+                $('#ChkAlguienTanques').prop('checked', d.Alquiler_tanques);
+                $('#ChkArrendamientoEq').prop('checked', d.Arriendo_equipo);
+                $('#TxtCanonArriendo').val(d.Canon_arrendamiento);
+                $('#TxtGarantia').val(d.Garantia);
+                $('#CboFirmadoPor').val(d.Firmado_por);
+
+                var vFechaInicio = ProcesarFecha(d.Fecha_inicio);
+                var vFechaInicio = ProcesarFecha(d.Fecha_inicio);
+                $('#TxtFechaInicioDetalle').val(vFechaInicio);
+                var vFechaFirmado = ProcesarFecha(d.Fecha_firmado);
+                $('#TxtFechaFirmado').val(vFechaFirmado);
+                var vFechaFinalizacion = ProcesarFecha(d.Fecha_finalizacion);
+                $('#TxtFechaFinalizacion').val(vFechaFinalizacion);
+                var vFechaFinalizacion = ProcesarFecha(d.Fecha_finaliza_pro);
+                $('#TxtFechaFinalizacionPr').val(vFechaFinalizacion);
+                var vFechaInicioSum = ProcesarFecha(d.Inicio_suministro);
+                //$('#TxtInicioSuministro').val(d.Inicio_suministro);
+                $('#TxtInicioSuministro').val(vFechaInicioSum);
+
+                $('#TxtVigenciaMeses').val(d.Vigencia_meses);
+                $('#TxtVigenciaAutoMeses').val(d.Vigencia_auto_meses);
+                $('#TxtTerminacionCon').val(d.Aviso_terminacion_con);
+                $('#TxtCondicionesEsp').val(d.Condiciones_especiales);
+                $('#ChkClausulaTracto').prop('checked', d.Tiempo_espera_trac);
+                $('#TxtHorasMinimasEsp').val(d.Horas_min_espera);
+                $('#ChkContratoComodato').prop('checked', d.Contrato_comodato);
+                $('#TxtPlazoPagoDias').val(d.Plazo_pago_dias);
+                $('#ChkMultaVencimiento').prop('checked', d.Multa_vencimiento_fac);
+                $('#TxtPorcentajeMulta').val(d.Porcentaje_multa);
+                $('#TxtAumentoPrecios').val(d.Aumento_precio);
+            });
+        }
+
+        function ObtenerOtroSi(id) {
+            $('#datOtroSi').DataTable().clear().draw();
+            var a = $.post(myVar + '/Home/ObtenerOtroSis', { idContrato: _numeroContrato }, function (data) {
+                if (data.length > 0) {
+                    $('#datOtroSi').DataTable().clear();
+                    $('#datOtroSi').DataTable({
+                        destroy: true,
+                        paging: true,
+                        searching: true,
+                        data: data,
+                        "columns": [
+                            { "data": "Id", "name": "Id" },
+                            { "data": "FechaActaS", "name": "FechaActaS" },
+                            { "data": "TotalAdiciones", "name": "TotalAdiciones" },
+                            { "data": "TotalProrrogaMes", "name": "TotalProrrogaMes" },
+                            {
+                                "data": null,
+                                "defaultContent": "<button id='BtnEliminarOtroSi' onClick='EliminarOtroSi(this);'><i class='fa fa-remove'></i></button>",
+                                "targets": -1
+                            }
+                        ]
+                    });
+                }
+
+            });
+
+
+            var b = $.post(myVar + '/Home/ObtenerOtroSisAcu', { idContrato: id }, function (data) {
+                $('#TxtProTotalAdicionesPos').prop('disabled', true);
+                $('#TxtProTotalProrrogaMesesPos').prop('disabled', true);
+
+                $('#TxtProTotalAdicionesPos').val(data.Monto);
+                $('#TxtProTotalProrrogaMesesPos').val(data.Dias);
+
+
+
+            });
+        }
+
+        function EliminarOtroSi(id) {
+            var vId = id.parentElement.parentElement.children[0].textContent.trim();
+            var a = $.post(myVar + '/Home/EliminarOtroSi', { id: vId }, function (data) {
+                $('#TxtPreguntaModal').html('<p>Registro de <b>Otro si</b> eliminado con éxito.</p>');
+                $('#DivMensaje').modal({ show: true });
+                ObtenerOtroSi(_numeroContratoProducto);
+            });
+        }
+
+        $('#BtnAlmacenaAnexos').on('click', function () {
+            var mensaje = '';
+            var vArc = 0;
+            var vArchivo = '';
+            //debugger;
+            vArc = $('#TxtAnexo')[0].files.length;
+
+            if (vArc == 0) {
+                mensaje = '<p>Se debe incluir el anexo.</p>'
+            }
+            else {
+                vArchivo = $('#TxtAnexo')[0].files[0].name;
+            }
+
+            if (mensaje == '') {
+                //debugger;
+                var a = $.post(myVar + '/Home/AlmacenarAnexo', { contrato: _numeroContratoProducto, archivo: vArchivo }, function (data) {
+                    $('#TxtPreguntaModal').html('<p>Registro de <b>anexo</b> almacenado con éxito.</p>');
+                    $('#DivMensaje').modal({ show: true });
+                    //debugger;
+                    ObtenerAnexos(_numeroContratoProducto);
+
+                });
+            }
+            else {
+                $('#TxtPreguntaModal').html(mensaje);
+                $('#DivMensaje').modal({ show: true });
+
+            }
+        });
+
+        function ObtenerAnexos(id) {
+            //debugger;
+            var a = $.post(myVar + '/Home/ObtenerAnexos', { contrato: id}, function (data) {
+                if (data.length > 0) {
+                    $('#datAnexos').DataTable().clear();
+                    $('#datAnexos').DataTable({
+                        destroy: true,
+                        paging: true,
+                        searching: true,
+                        data: data,
+                        "columns": [
+                            { "data": "Id", "name": "Id" },
+                            { "data": "InfoAnexo", "name": "InfoAnexo" },
+                            {
+                                "data": null,
+                                "defaultContent": "<button id='BtnDownload' onClick='Descargar(this);'><i class='fa fa-download'></i></button>&nbsp<button id='BtnEliminar' onClick='EliminarAnexo(this);'><i class='fa fa-minus-circle'></i></button>",
+                                "targets": -1
+                            }
+                        ]
+                    });
+                }
+
+            });
+
+        }
+
+        function Descargar(id) {
+            //debugger;
+            var vLink = id.parentElement.parentElement.children[1].textContent.trim();
+            window.open(vLink, 'Descarga anexo');
+            /*var vId = id.parentElement.parentElement.children[0].textContent.trim();
+
+            var a = $.post(myVar + '/Home/ObtenerDescarga', { id: vId }, function (data) {
+                setTimeout(
+                    function () {
+                        window.open(vLink, 'Descarga anexo');
+                    }, 3000);
+                setTimeout(
+                    function () {
+                        var a = $.post(myVar + '/Home/EliminarDescarga', { archivo: vLink }, function (data) {
+                            $('#TxtPreguntaModal').html('<p>Registro de <b>anexo</b> descarga con éxito.</p>');
+                            $('#DivMensaje').modal({ show: true });
+                        });
+                    }, 3000);
+            });*/
+
+            
+        }
+
+        function EliminarAnexo(id) {
+            var vId = id.parentElement.parentElement.children[0].textContent.trim();
+            var a = $.post(myVar + '/Home/EliminarAnexo', { id: vId}, function (data) {
+                $('#TxtPreguntaModal').html('<p>Registro de <b>anexo</b> eliminado con éxito.</p>');
+                $('#DivMensaje').modal({ show: true });
+                ObtenerAnexos(_numeroContratoProducto);
+            });
+        }
+
+        $('#BtnAlmacenaDetalle').on('click', function () {
+            var CboProducto = $('#CboProducto').val();
+            var TxtPrecio = $('#TxtPrecio').val();
+            var ChkEscalado = $('#ChkEscalado').prop('checked');
+            var TxtEscalado = $('#TxtEscalado').val();
+            var TxtPrecioEscalado = $('#TxtPrecioEscalado').val();
+            var TxtConsumoContratado = $('#TxtConsumoContratado').val();
+            var ChkClausulaToP = $('#ChkClausulaToP').prop('checked');
+            var TxToP = $('#TxToP').val();
+            var CboPeriodicidadTop = $('#CboPeriodicidadTop').val();
+            var ChkAlguienTanques = $('#ChkAlguienTanques').prop('checked');
+            var ChkArrendamientoEq = $('#ChkArrendamientoEq').prop('checked');
+            var TxtCanonArriendo = $('#TxtCanonArriendo').val();
+            var TxtGarantia = $('#TxtGarantia').val();
+            var CboFirmadoPor = $('#CboFirmadoPor').val();
+            var TxtFechaInicioDetalle = $('#TxtFechaInicioDetalle').val();
+            var TxtFechaFirmado = $('#TxtFechaFirmado').val();
+            var TxtFechaFinalizacion = $('#TxtFechaFinalizacion').val();
+            var TxtFechaFinalizacionPr = $('#TxtFechaFinalizacionPr').val();
+            var TxtInicioSuministro = $('#TxtInicioSuministro').val();
+            var TxtVigenciaMeses = $('#TxtVigenciaMeses').val();
+            var TxtVigenciaAutoMeses = $('#TxtVigenciaAutoMeses').val();
+            var TxtTerminacionCon = $('#TxtTerminacionCon').val();
+            var TxtCondicionesEsp = $('#TxtCondicionesEsp').val();
+            var ChkClausulaTracto = $('#ChkClausulaTracto').prop('checked');
+            var TxtHorasMinimasEsp = $('#TxtHorasMinimasEsp').val();
+            var ChkContratoComodato = $('#ChkContratoComodato').prop('checked');
+            var TxtPlazoPagoDias = $('#TxtPlazoPagoDias').val();
+            var ChkMultaVencimiento = $('#ChkMultaVencimiento').prop('checked');
+            var TxtPorcentajeMulta = $('#TxtPorcentajeMulta').val();
+            var TxtAumentoPrecios = $('#TxtAumentoPrecios').val();
+            var TxtMail = $('#TxtCorreo').val();
+
+            var a = $.post(myVar + '/Home/GuardarDetalle', { IdMaestro: _numeroContratoProducto, prod: CboProducto, preProd: TxtPrecio, conCont: TxtConsumoContratado, cTop: ChkClausulaToP, top: TxToP, escala: ChkEscalado, canEsca: TxtEscalado, preEsca: TxtPrecioEscalado, period: CboPeriodicidadTop, alqTan: ChkAlguienTanques, arrEq: ChkArrendamientoEq, canonArr: TxtCanonArriendo, garant: TxtGarantia, firmadoP: CboFirmadoPor, fechaIni: TxtFechaInicioDetalle, fechaFir: TxtFechaFirmado, FechaFina: TxtFechaFinalizacion, fechaFinaPro: TxtFechaFinalizacionPr, inicioSumi: TxtInicioSuministro, vigenciaMe: TxtVigenciaMeses, vigenciaAutoMes: TxtVigenciaAutoMeses, avisoTermCon: TxtTerminacionCon, condEspec: TxtCondicionesEsp, tiempoEsperaTrac: ChkClausulaTracto, horasMinEsp: TxtHorasMinimasEsp, contratoComo: ChkContratoComodato, plazoPagoD: TxtPlazoPagoDias, multaVencFac: ChkMultaVencimiento, porcMulta: TxtPorcentajeMulta, aumentoPrecio: TxtAumentoPrecios, mail: TxtMail }, function (data) {
+                if (data == false) {
+                    $('#TxtPreguntaModal').html('<p>Exise un problema al almacenar <b>Detalle</b>, por favor valide con el administrador.</p>');
+                    $('#DivMensaje').modal({ show: true });
+                }
+                else {
+                    $('#TxtPreguntaModal').html('<p>Registro del <b>detalle</b> almacenado con éxito.</p>');
+                    $('#DivMensaje').modal({ show: true });
+
+                }
+            });
+
+        });
+
+        function RetornaValor(valor) {
+            if (valor == '') {
+                return 0;
+            }
+        }
+
+        $('#BtnAceptarMensajeP').on('click', function(){
+            LimpiarPrincipal();
+            _numero = -1;
+        });
+
+        function LimpiarPrincipal() {
+            $('#CboCompania').val(-1);
+            $('#CboTipoCliente').val(-1);
+            $("#TxtCliente").val('');
+            $("#TxtIdentificacion").val('');
+
+        }
+
+        $('#BtnBuscar').on('click', function () {
+            var vEmp = $('#CboCompania').val();
+            var vCli = $('#TxtCliente').val();
+            esInhabilitado = false;
+            if (vCli == '') {
+                $('#TxtPreguntaModal').text('Para realizar la búsqueda, debe primero haber seleccionado primero el código del cliente.');
+                $('#DivMensaje').modal({ show: true });
+            }
+            else {
+                var a = $.post(myVar + '/Home/ListarMaestros', { emp: vEmp, cliente: vCli }, function (d) {
+                    if (d.length > 0) {
+                        $('#TabBusqueda').DataTable().clear();
+                        $('#TabBusqueda').DataTable().draw();
+                        if (d.length > 0) {
+                            $('#TabBusqueda').DataTable({
+                                destroy: true,
+                                paging: true,
+                                searching: true,
+                                data: d,
+                                "columns": [
+                                    { "data": "IdMaestro", "name": "IdMaestro" },
+                                    { "data": "Registro", "name": "Registro" },
+                                    { "data": "IdContratoProducto", "name": "IdContratoProducto" },
+                                    { "data": "Producto", "name": "Producto" },
+                                    {
+                                        "data": null,
+                                        "defaultContent": "<button id='BtnBuscarDetalle' onClick='BuscarDetalle(this);'><i class='fa fa-search'></i></button>",
+                                        "targets": -1
+                                    },
+                                    {
+                                        "data": null,
+                                        "defaultContent": "<button id='BtnBuscarMaestro' onClick='BuscarMaestro(this);'><i class='fa fa-plus'></i></button>",
+                                        "targets": -1
+                                    },
+                                    {
+                                        "data": "Alerta","name": "Alerta"
+                                    },
+                                    {
+                                        "data": null,
+                                        "defaultContent": "<button id='BtnInactivarContrato' onClick='InactivarContrato(this);'><i class='fa fa-ban'></i></button>",
+                                        "targets": -1
+                                    },
+                                    {
+                                        "data": null,
+                                        "defaultContent": "<button id='BtnCerrarContrato' onClick='CerrarContrato(this);'><i class='fa fa-close'></i></button>",
+                                        "targets": -1
+                                    },
+                                    {
+                                        "data": null,
+                                        "defaultContent": "<button id='BtnClonarContrato' onClick='ClonarContrato(this);'><i class='fa fa-copy'></i></button>",
+                                        "targets": -1
+                                    }
+                                ]
+                            });
+                        }
+                    }
+                });
+                $('#DivBusqueda').modal({ show: true });
+            }
+        });
+
+        function ClonarContrato(id) {
+            var vId = id.parentElement.parentElement.children[0].textContent.trim();
+            var vIdProducto = id.parentElement.parentElement.children[2].textContent.trim();
+            _numeroContratoClo = vId;
+            _numeroContratoProductoClo = vIdProducto;
+            $('#DivBusqueda').modal('hide');
+            $('#DivClonacion').modal({ show: true });
+        }
+
+        $('#BtnAceptarClonacion').click(function () {
+            var vCompania = $('#CboCompaniaClo').val();
+            var vTipoCliente = $('#CboTipoClienteClo').val();
+            var vCliente = $('#TxtClienteClo').val();
+            var vIdentificacion = $('#TxtIdentificacionClo').val();
+            var vCorreo = $('#TxtCorreo').val();
+
+            var a = $.post(myVar + '/Home/GuardarCOntratoMaestro', { compania: vCompania, tipoCliente: vTipoCliente, idCliente: vCliente, identificacion: vIdentificacion, correo: vCorreo }, function (data) {
+                _numeroContrato = data;
+                var mensaje = '<p>Número de contrato: ' + _numeroContrato + ' </p>'
+                $('#TxtNumeroContrato').html(mensaje);
+
+                var b = $.post(myVar + '/Home/GuardarContrato', { IdMaestro: _numeroContrato }, function (dat) {
+                    _numeroContratoProducto = dat;
+                    var mensaj = '<p>Número de contrato-producto : ' + _numeroContratoProducto + ' </p>'
+                    $('#TxtNumeroContratoDetalle').html(mensaj);
+                    $('#BtnNuevoProducto').prop('disabled', false);
+                    $('#BtnAlmacenaDetalle').prop('disabled', false);
+                    $('#BtnAlmacenaAnexos').prop('disabled', false);
+                    $('#BtnAlmacenaDelta').prop('disabled', false);
+                    $('#BtnAlmacenaPrecio').prop('disabled', false);
+                    $('#BtnAlmacenaOtroSi').prop('disabled', false);
+
+                });
+                var aa = $.post(myVar + '/Home/ObtenerDetalle', { contratoProducto: _numeroContratoProductoClo }, function (d) {
+                    //debugger;
+                    esInhabilitado = false;
+                    $('#CboProducto').val(d.Producto);
+                    $('#TxtPrecio').val(d.Precio_producto);
+                    $('#ChkEscalado').prop('checked', d.Escalado);
+                    $('#TxtEscalado').val(d.Escalado);
+                    $('#TxtPrecioEscalado').val(d.Precio_escalado);
+                    $('#TxtConsumoContratado').val(d.Consumo_contratado);
+                    $('#ChkClausulaToP').prop('checked', d.C_top);
+                    $('#TxToP').val(d.Top);
+                    $('#CboPeriodicidadTop').val(d.Periodicidad);
+                    $('#ChkAlguienTanques').prop('checked', d.Alquiler_tanques);
+                    $('#ChkArrendamientoEq').prop('checked', d.Arriendo_equipo);
+                    $('#TxtCanonArriendo').val(d.Canon_arrendamiento);
+                    $('#TxtGarantia').val(d.Garantia);
+                    $('#CboFirmadoPor').val(d.Firmado_por);
+
+                    var vFechaInicio = ProcesarFecha(d.Fecha_inicio);
+                    var vFechaInicio = ProcesarFecha(d.Fecha_inicio);
+                    $('#TxtFechaInicioDetalle').val(vFechaInicio);
+                    var vFechaFirmado = ProcesarFecha(d.Fecha_firmado);
+                    $('#TxtFechaFirmado').val(vFechaFirmado);
+                    var vFechaFinalizacion = ProcesarFecha(d.Fecha_finalizacion);
+                    $('#TxtFechaFinalizacion').val(vFechaFinalizacion);
+                    var vFechaFinalizacion = ProcesarFecha(d.Fecha_finaliza_pro);
+                    $('#TxtFechaFinalizacionPr').val(vFechaFinalizacion);
+                    var vFechaInicioSum = ProcesarFecha(d.Inicio_suministro);
+                    //$('#TxtInicioSuministro').val(d.Inicio_suministro);
+                    $('#TxtInicioSuministro').val(vFechaInicioSum);
+
+                    $('#TxtVigenciaMeses').val(d.Vigencia_meses);
+                    $('#TxtVigenciaAutoMeses').val(d.Vigencia_auto_meses);
+                    $('#TxtTerminacionCon').val(d.Aviso_terminacion_con);
+                    $('#TxtCondicionesEsp').val(d.Condiciones_especiales);
+                    $('#ChkClausulaTracto').prop('checked', d.Tiempo_espera_trac);
+                    $('#TxtHorasMinimasEsp').val(d.Horas_min_espera);
+                    $('#ChkContratoComodato').prop('checked', d.Contrato_comodato);
+                    $('#TxtPlazoPagoDias').val(d.Plazo_pago_dias);
+                    $('#ChkMultaVencimiento').prop('checked', d.Multa_vencimiento_fac);
+                    $('#TxtPorcentajeMulta').val(d.Porcentaje_multa);
+                    $('#TxtAumentoPrecios').val(d.Aumento_precio);
+                    //TxtPrecio
+                    $('#CboProducto').prop('disabled', false);
+                    $('#TxtPrecio').prop('disabled', false);
+                    $('#ChkEscalado').prop('disabled', false);
+                    $('#TxtEscalado').prop('disabled', false);
+                    $('#TxtPrecioEscalado').prop('disabled', false);
+                    $('#TxtConsumoContratado').prop('disabled', false);
+                    $('#ChkClausulaToP').prop('disabled', false);
+                    $('#TxToP').prop('disabled', false);
+                    $('#CboPeriodicidadTop').prop('disabled', false);
+                    $('#ChkAlguienTanques').prop('disabled', false);
+                    $('#ChkArrendamientoEq').prop('disabled', false);
+                    $('#TxtCanonArriendo').prop('disabled', false);
+                    $('#TxtGarantia').prop('disabled', false);
+                    $('#CboFirmadoPor').prop('disabled', false);
+                    $('#TxtFechaInicioDetalle').prop('disabled', false);
+                    $('#TxtFechaFirmado').prop('disabled', false);
+                    $('#TxtFechaFinalizacion').prop('disabled', false);
+                    $('#TxtFechaFinalizacionPr').prop('disabled', false);
+                    $('#TxtInicioSuministro').prop('disabled', false);
+                    $('#TxtVigenciaMeses').prop('disabled', false);
+                    $('#TxtVigenciaAutoMeses').prop('disabled', false);
+                    $('#TxtTerminacionCon').prop('disabled', false);
+                    $('#TxtCondicionesEsp').prop('disabled', false);
+                    $('#ChkClausulaTracto').prop('disabled', false);
+                    $('#TxtHorasMinimasEsp').prop('disabled', false);
+                    $('#ChkContratoComodato').prop('disabled', false);
+                    $('#TxtPlazoPagoDias').prop('disabled', false);
+                    $('#ChkMultaVencimiento').prop('disabled', false);
+                    $('#TxtPorcentajeMulta').prop('disabled', false);
+                    $('#TxtAumentoPrecios').prop('disabled', false);
+
+                    $('#BtnAlmacenaDetalle').prop('disabled', false);
+                    $('#BtnAlmacenaAnexos').prop('disabled', false);
+                    $('#BtnAlmacenaOtroSi').prop('disabled', false);
+
+                    openTab(event, 'Detalle')
+
+                    $('#DivBusqueda').modal('hide');
+                    TraerDatosClienteClo();
+                });
+
+                var b = $.post(myVar + '/Home/ObtenerDelta', { contratoProducto: _numeroContratoProductoClo }, function (d) {
+
+
+                    $('#TxtEE').val(d.Deltaee);
+                    $('#TxtIpx').val(d.Deltaip);
+                    $('#TxtDiesel').val(d.Deltadiesel);
+                    $('#TxtIPP').val(d.Deltaipp);
+                    $('#TxtGas').val(d.Deltagas);
+                    $('#TxtTRM').val(d.Deltatrm);
+                    $('#TxtOtros').val(d.Deltaotros);
+                    $('#TxtVDiesel').val(d.Diesel);
+                    $('#TxtIPC2').val(d.Ipc);
+                    $('#TxtUSD3').val(d.Usd);
+                    $('#TxtEnergia').val(d.Energia);
+                    $('#TxtVOtros').val(d.Otros);
+
+                    $('#TxtEE').prop('disabled', false);
+                    $('#TxtIpx').prop('disabled', false);
+                    $('#TxtDiesel').prop('disabled', false);
+                    $('#TxtIPP').prop('disabled', false);
+                    $('#TxtGas').prop('disabled', false);
+                    $('#TxtTRM').prop('disabled', false);
+                    $('#TxtOtros').prop('disabled', false);
+                    $('#TxtVDiesel').prop('disabled', false);
+                    $('#TxtIPC2').prop('disabled', false);
+                    $('#TxtUSD3').prop('disabled', false);
+                    $('#TxtEnergia').prop('disabled', false);
+                    $('#TxtVOtros').prop('disabled', false);
+                });
+
+                var c = $.post(myVar + '/Home/ObtenerPrecio', { contratoProducto: _numeroContratoProductoClo }, function (d) {
+
+                    $('#TxtPrecioValorA1').val(d.Valor_ano1);
+                    $('#TxtPrecioValorA2').val(d.Valor_ano2);
+                    $('#TxtPrecioValorA3').val(d.Valor_ano3);
+                    $('#TxtPrecioValorA4').val(d.Valor_ano4);
+                    $('#TxtPrecioValorA5').val(d.Valor_ano5);
+                    $('#ChkOtroSi').prop('checked', d.Otrosi);
+                    $('#ChkVigencia').prop('checked', d.Vigencia);
+                    //$('#TxtEstatal').val(d.Estatal);
+                    $('#TxtEstatal').prop('checked', d.Estatal);
+                    $('#TxtAsignacionPres').val(d.Asignacion_presupuestal);
+                    $('#TxtRubroPresupuestal').val(d.No_rubro_presupuestal);
+                    $('#TxtCertificadoDisponible').val(d.Certificado_disponible);
+                    $('#FechaActaFechaInicioP').val(d.Acta_fecha_inicio);
+                    $('#TxtTotalAdicionesP').val(d.Total_adiciones);
+                    $('#TxtTotalProrrogaMesesP').val(d.Total_prorroga_mes);
+                    $('#TxtFacturaInicialP').val(d.Numero_factura_inicial);
+                    $('#TxtFacturaFinalP').val(d.Numero_factura_final);
+                    $('#TxtIDP').val(d.Id);
+                    $('#TxtSerialP').val(d.Serial)
+
+                    $('#TxtPrecioValorA1').prop('disabled', false);
+                    $('#TxtPrecioValorA2').prop('disabled', false);
+                    $('#TxtPrecioValorA3').prop('disabled', false);
+                    $('#TxtPrecioValorA4').prop('disabled', false);
+                    $('#TxtPrecioValorA5').prop('disabled', false);
+                    $('#ChkOtroSi').prop('disabled', false);
+                    $('#ChkVigencia').prop('disabled', false);
+                    $('#TxtEstatal').prop('disabled', false);
+                    $('#TxtAsignacionPres').prop('disabled', false);
+                    $('#TxtRubroPresupuestal').prop('disabled', false);
+                    $('#TxtCertificadoDisponible').prop('disabled', false);
+                    $('#FechaActaFechaInicioP').prop('disabled', false);
+                    $('#TxtTotalAdicionesP').prop('disabled', false);
+                    $('#TxtTotalProrrogaMesesP').val(d.Total_prorroga_mes);
+                    $('#TxtFacturaInicialP').prop('disabled', false);
+                    $('#TxtFacturaFinalP').prop('disabled', false);
+                    $('#TxtIDP').prop('disabled', false);
+                });
+            });
+        });
+
+
+        $('#BtnBuscarAlertasGeneral').click(function () {
+            var vFechaInicial = $('#TxtFechaInicialAlerta').val();
+            var vFechaFinal = $('#TxtFechaFinalAlerta').val();
+            var mensaje = '';
+            if (vFechaInicial == '')
+                mensaje += '<p>La fecha Inicial debe estar diligenciada</p>';
+            else {
+                if (vFechaFinal == '')
+                    mensaje += '<p>La fecha Final debe estar diligenciada</p>';
+                else {
+                    if (Date.parse(vFechaFinal) < Date.parse(vFechaInicial)) {
+                        mensaje += '<p>la fecha inicial no puede ser mayor a la fecha final</p>';
+                    }
+                }
+            }
+
+            if (mensaje.length == 0) {
+                var a = $.post(myVar + '/Home/ObtenerAlertasPorFecha', { fechaI: vFechaInicial, fechaF: vFechaFinal }, function (d) {
+                    if (d.length > 0) {
+                        $('#TabBusqueda').DataTable().clear();
+                        var data = d;
+                        if (d.length > 0) {
+                            $('#TabBusquedaAlerta').DataTable({
+                                destroy: true,
+                                paging: true,
+                                searching: true,
+                                data: data,
+                                "columns": [
+                                    { "data": "IdMaestro", "name": "IdMaestro" },
+                                    { "data": "FechaRegistroTexto", "name": "FechaRegistroTexto" },
+                                    { "data": "IdContrato", "name": "IdContrato" },
+                                    { "data": "DesTipoAlerta", "name": "DesTipoAlerta" },
+                                    { "data": "Mensaje", "name": "Mensaje" }
+                                ]
+                            });
+                        }
+                    }
+                });
+                $('#DivBusquedaAlertas').modal({ show: true });
+            }
+            else {
+                $('#TxtPreguntaModal').html(mensaje);
+                $('#DivMensaje').modal({ show: true });
+            }
+        });
+
+        function BuscarAlertas(id) {
+            $('#DivBusqueda').modal('hide');
+            _vContratoCerrar = id.parentElement.parentElement.children[0].textContent.trim();
+            _vProducto = id.parentElement.parentElement.children[2].textContent.trim();
+
+            var a = $.post(myVar + '/Home/ObtenerAlertasPorContratoMaestro', { idMaestro: _vContratoCerrar, idContrato: _vProducto }, function (d) {
+                if (d.length > 0) {
+                    $('#TabBusqueda').DataTable().clear();
+                    var data = d;
+                    if (d.length > 0) {
+                        $('#TabBusquedaAlerta').DataTable({
+                            destroy: true,
+                            paging: true,
+                            searching: true,
+                            data: data,
+                            "columns": [
+                                { "data": "IdMaestro", "name": "IdMaestro" },
+                                { "data": "FechaRegistroTexto", "name": "FechaRegistroTexto" },
+                                { "data": "IdContrato", "name": "IdContrato" },
+                                { "data": "DesTipoAlerta", "name": "DesTipoAlerta" },
+                                { "data": "Mensaje", "name": "Mensaje"}
+                            ]
+                        });
+                    }
+                }
+            });
+            $('#DivBusquedaAlertas').modal({ show: true });
+        }
+
+        $('#BuscarAutorizaciones').on('click', function () {
+
+            $('#BuscarAutorizaciones').prop('disabled', true);
+            var vFechaI = $('#TxtFechaInicialAprovacion').val();
+            var vFechaF = $('#TxtFechaFinalAprobacion').val();
+            var mensaje = '';
+
+            if (vFechaI == '') {
+                mensaje = '<p>La fecha <b>inicial</b>, es obligatoria</p>';
+            }
+            if (vFechaF == '') {
+                mensaje = '<p>La fecha <b>final</b>, es obligatoria</p>';
+            }
+
+            if (mensaje == '') {
+
+                if (Date.parse(vFechaF) < Date.parse(vFechaI)) {
+                    mensaje = '<p>La fecha <b>inicial</b>, debe ser mayor a la fecha <b>final</b></p>';
+                    $('#TxtPreguntaModal').html(mensaje);
+                    $('#DivMensaje').modal({ show: true });
+                    $('#BuscarAutorizaciones').prop('disabled', false);
+                    return false;
+                }
+                else {
+                    var b = $.post(myVar + '/Home/ObtenerAutorizaciones', { fechaI: vFechaI, fechaF: vFechaF }, function (dat) {
+                        $('#TabAprobaciones').DataTable().clear();
+                        if (dat.length > 0) {
+                            $('#TabAprobaciones').DataTable({
+                                destroy: true,
+                                paging: true,
+                                searching: true,
+                                data: dat,
+                                "columns": [
+                                    { "data": "Id", "name": "Id" },
+                                    { "data": "idContrato", "name": "idContrato" },
+                                    { "data": "NombreRuta", "name": "NombreRuta" },
+                                    { "data": "FechaRegistroTexto", "name": "FechaRegistroTexto" },
+                                    { "data": "Cliente", "name": "Cliente" },
+                                    { "data": "Accion", "name": "Accion" },
+                                    {
+                                        "data": null,
+                                        "defaultContent": "<button id='BtnPush' onClick='AdelantarRuta(this);'><i class='fa fa-forward'></i></button>",
+                                        "targets": -1
+                                    }
+                                ]
+                            });
+                        }
+                        $('#BuscarAutorizaciones').prop('disabled', false);
+                    });
+                }
+            }
+            else {
+                $('#TxtPreguntaModal').html(mensaje);
+                $('#DivMensaje').modal({ show: true });
+                $('#BuscarAutorizaciones').prop('disabled', false);
+                return false;
+            }
+        });
+
+        function AdelantarRuta(id) {
+            var _idRutaContrato = id.parentElement.parentElement.children[0].textContent.trim();
+
+            var vMensaje = id.parentElement.parentElement.children[5].children[0].value;
+            var vContratoAlerta = id.parentElement.parentElement.children[1].textContent.trim();
+
+
+            $('#TabAprobaciones').DataTable().clear();
+            var b = $.post(myVar + '/Home/AvanzarTarea', { id: _idRutaContrato, mensaje: vMensaje, contrato: vContratoAlerta }, function (dat) {
+                if (dat == true)
+                    $('#TxtPreguntaModal').html('<p>La tarea ha sido avanzada con éxito</p>');
+                else
+                    $('#TxtPreguntaModal').html('<p>La tarea NO ha sido avanzada, por favor valide con el administrador</p>');
+                $('#DivMensaje').modal({ show: true });
+
+            });
+
+
+        }
+
+        function Habilitar() {
+
+            $('#CboProducto').prop('disabled', false);
+            $('#TxtPrecio').prop('disabled', false);
+            $('#ChkEscalado').prop('disabled', false);
+            $('#TxtEscalado').prop('disabled', false);
+            $('#TxtPrecioEscalado').prop('disabled', false);
+            $('#TxtConsumoContratado').prop('disabled', false);
+            $('#ChkClausulaToP').prop('disabled', false);
+            $('#TxToP').prop('disabled', false);
+            $('#CboPeriodicidadTop').prop('disabled', false);
+            $('#ChkAlguienTanques').prop('disabled', false);
+            $('#ChkArrendamientoEq').prop('disabled', false);
+            $('#TxtCanonArriendo').prop('disabled', false);
+            $('#TxtGarantia').prop('disabled', false);
+            $('#CboFirmadoPor').prop('disabled', false);
+            $('#TxtFechaInicioDetalle').prop('disabled', false);
+            $('#TxtFechaFirmado').prop('disabled', false);
+            $('#TxtFechaFinalizacion').prop('disabled', false);
+            $('#TxtFechaFinalizacionPr').prop('disabled', false);
+            $('#TxtInicioSuministro').prop('disabled', false);
+            $('#TxtVigenciaMeses').prop('disabled', false);
+            $('#TxtVigenciaAutoMeses').prop('disabled', false);
+            $('#TxtTerminacionCon').prop('disabled', false);
+            $('#TxtCondicionesEsp').prop('disabled', false);
+            $('#ChkClausulaTracto').prop('disabled', false);
+            $('#TxtHorasMinimasEsp').prop('disabled', false);
+            $('#ChkContratoComodato').prop('disabled', false);
+            $('#TxtPlazoPagoDias').prop('disabled', false);
+            $('#ChkMultaVencimiento').prop('disabled', false);
+            $('#TxtPorcentajeMulta').prop('disabled', false);
+            $('#TxtAumentoPrecios').prop('disabled', false);
+
+            $('#TxtEE').prop('disabled', false);
+            $('#TxtIpx').prop('disabled', false);
+            $('#TxtDiesel').prop('disabled', false);
+            $('#TxtIPP').prop('disabled', false);
+            $('#TxtGas').prop('disabled', false);
+            $('#TxtTRM').prop('disabled', false);
+            $('#TxtOtros').prop('disabled', false);
+            $('#TxtVDiesel').prop('disabled', false);
+            $('#TxtIPC2').prop('disabled', false);
+            $('#TxtUSD3').prop('disabled', false);
+            $('#TxtEnergia').prop('disabled', false);
+            $('#TxtVOtros').prop('disabled', false);
+
+            $('#TxtPrecioValorA1').prop('disabled', false);
+            $('#TxtPrecioValorA2').prop('disabled', false);
+            $('#TxtPrecioValorA3').prop('disabled', false);
+            $('#TxtPrecioValorA4').prop('disabled', false);
+            $('#TxtPrecioValorA5').prop('disabled', false);
+            $('#ChkOtroSi').prop('disabled', false);
+            $('#ChkVigencia').prop('disabled', false);
+            $('#TxtEstatal').prop('disabled', false);
+            $('#TxtAsignacionPres').prop('disabled', false);
+            $('#TxtRubroPresupuestal').prop('disabled', false);
+            $('#TxtCertificadoDisponible').prop('disabled', false);
+            $('#FechaActaFechaInicioP').prop('disabled', false);
+            $('#TxtTotalAdicionesP').prop('disabled', false);
+            //$('#TxtTotalProrrogaMesesP').val(d.Total_prorroga_mes);
+            $('#TxtFacturaInicialP').prop('disabled', false);
+            $('#TxtFacturaFinalP').prop('disabled', false);
+            $('#TxtIDP').prop('disabled', false);
+
+        }
+
+        function InHabilitar() {
+
+            $('#CboProducto').prop('disabled', true);
+            $('#TxtPrecio').prop('disabled', true);
+            $('#ChkEscalado').prop('disabled', true);
+            $('#TxtEscalado').prop('disabled', true);
+            $('#TxtPrecioEscalado').prop('disabled', true);
+            $('#TxtConsumoContratado').prop('disabled', true);
+            $('#ChkClausulaToP').prop('disabled', true);
+            $('#TxToP').prop('disabled', true);
+            $('#CboPeriodicidadTop').prop('disabled', true);
+            $('#ChkAlguienTanques').prop('disabled', true);
+            $('#ChkArrendamientoEq').prop('disabled', true);
+            $('#TxtCanonArriendo').prop('disabled', true);
+            $('#TxtGarantia').prop('disabled', true);
+            $('#CboFirmadoPor').prop('disabled', true);
+            $('#TxtFechaInicioDetalle').prop('disabled', true);
+            $('#TxtFechaFirmado').prop('disabled', true);
+            $('#TxtFechaFinalizacion').prop('disabled', true);
+            $('#TxtFechaFinalizacionPr').prop('disabled', true);
+            $('#TxtInicioSuministro').prop('disabled', true);
+            $('#TxtVigenciaMeses').prop('disabled', true);
+            $('#TxtVigenciaAutoMeses').prop('disabled', true);
+            $('#TxtTerminacionCon').prop('disabled', true);
+            $('#TxtCondicionesEsp').prop('disabled', true);
+            $('#ChkClausulaTracto').prop('disabled', true);
+            $('#TxtHorasMinimasEsp').prop('disabled', true);
+            $('#ChkContratoComodato').prop('disabled', true);
+            $('#TxtPlazoPagoDias').prop('disabled', true);
+            $('#ChkMultaVencimiento').prop('disabled', true);
+            $('#TxtPorcentajeMulta').prop('disabled', true);
+            $('#TxtAumentoPrecios').prop('disabled', true);
+
+            $('#TxtEE').prop('disabled', true);
+            $('#TxtIpx').prop('disabled', true);
+            $('#TxtDiesel').prop('disabled', true);
+            $('#TxtIPP').prop('disabled', true);
+            $('#TxtGas').prop('disabled', true);
+            $('#TxtTRM').prop('disabled', true);
+            $('#TxtOtros').prop('disabled', true);
+            $('#TxtVDiesel').prop('disabled', true);
+            $('#TxtIPC2').prop('disabled', true);
+            $('#TxtUSD3').prop('disabled', true);
+            $('#TxtEnergia').prop('disabled', true);
+            $('#TxtVOtros').prop('disabled', true);
+
+            $('#TxtPrecioValorA1').prop('disabled', true);
+            $('#TxtPrecioValorA2').prop('disabled', true);
+            $('#TxtPrecioValorA3').prop('disabled', true);
+            $('#TxtPrecioValorA4').prop('disabled', true);
+            $('#TxtPrecioValorA5').prop('disabled', true);
+            $('#ChkOtroSi').prop('disabled', true);
+            $('#ChkVigencia').prop('disabled', true);
+            $('#TxtEstatal').prop('disabled', true);
+            $('#TxtAsignacionPres').prop('disabled', true);
+            $('#TxtRubroPresupuestal').prop('disabled', true);
+            $('#TxtCertificadoDisponible').prop('disabled', true);
+            $('#FechaActaFechaInicioP').prop('disabled', true);
+            $('#TxtTotalAdicionesP').prop('disabled', true);
+            //$('#TxtTotalProrrogaMesesP').val(d.Total_prorroga_mes);
+            $('#TxtFacturaInicialP').prop('disabled', true);
+            $('#TxtFacturaFinalP').prop('disabled', true);
+            $('#TxtIDP').prop('disabled', true);
+
+            $('#BtnAlmacenaDetalle').prop('disabled', true);
+            $('#BtnAlmacenaAnexos').prop('disabled', true);
+            $('#BtnAlmacenaDelta').prop('disabled', true);
+            $('#BtnAlmacenaPrecio').prop('disabled', true);
+            $('#BtnAlmacenaPrecio').prop('disabled', true);
+
+        }
+
+        $('#BtnAceptarMensajePCerrar').on('click', function () {
+            debugger;
+            var tipo = $('#SpanTipo').html();
+            $('#DivBusqueda').modal('hide');
+            $('#SpanTipo').html('');
+            if (tipo.length == 0) {
+                var b = $.post(myVar + '/Home/CerrarContratos', { contrato: _vContratoCerrar, producto: _vProducto }, function (dat) {
+                    if (dat == true) {
+                        var vEmp = $('#CboCompania').val();
+                        var vCli = $('#TxtCliente').val();
+
+                        var a = $.post(myVar + '/Home/ListarMaestros', { emp: vEmp, cliente: vCli }, function (d) {
+                            if (d.length > 0) {
+                                $('#TabBusqueda').DataTable().clear();
+                                var data = d;
+                                if (d.length > 0) {
+                                    $('#TabBusqueda').DataTable({
+                                        destroy: true,
+                                        paging: true,
+                                        searching: true,
+                                        data: data,
+                                        "columns": [
+                                            { "data": "IdMaestro", "name": "IdMaestro" },
+                                            { "data": "Registro", "name": "Registro" },
+                                            { "data": "IdContratoProducto", "name": "IdContratoProducto" },
+                                            { "data": "Producto", "name": "Producto" },
+                                            {
+                                                "data": null,
+                                                "defaultContent": "<button id='BtnBuscarDetalle' onClick='BuscarDetalle(this);'><i class='fa fa-search'></i></button>",
+                                                "targets": -1
+                                            },
+                                            {
+                                                "data": null,
+                                                "defaultContent": "<button id='BtnBuscarMaestro' onClick='BuscarMaestro(this);'><i class='fa fa-plus'></i></button>",
+                                                "targets": -1
+                                            },
+                                            {
+                                                "data": "Alerta",
+                                                "name": "Alerta"
+                                            },
+                                            {
+                                                "data": null,
+                                                "defaultContent": "<button id='BtnInactivarContrato' onClick='InactivarContrato(this);'><i class='fa fa-close'></i></button>",
+                                                "targets": -1
+                                            },
+                                            {
+                                                "data": null,
+                                                "defaultContent": "<button id='BtnCerrarContrato' onClick='CerrarContrato(this);'><i class='fa fa-close'></i></button>",
+                                                "targets": -1
+                                            }
+                                        ]
+                                    });
+                                }
+                            }
+                            $('#DivBusqueda').modal({ show: true });
+                        });
+                    }
+                });
+            }
+            else {
+                var b = $.post(myVar + '/Home/InactivarContratos', { contrato: _vContratoCerrar, producto: _vProducto }, function (dat) {
+                    if (dat == true) {
+                        var vEmp = $('#CboCompania').val();
+                        var vCli = $('#TxtCliente').val();
+                        $('#TxtPreguntaModalP').html('<p>El contrato <b>' + _vContratoCerrar + '-' +  _vProducto + '</b> fue inhabilitado, podrá verlo, pero no editarlo u otra acción</p>');
+                        $('#DivMensajePregunta').modal({ show: true });
+                    }
+                });
+
+            }
+        })
+
+        $('#BtnCancelarMensajePCerrar').on('click', function () {
+            $('#DivBusqueda').modal({ show: true });
+        })
+
+        function CerrarContrato(id) {
+            _vContratoCerrar = id.parentElement.parentElement.children[0].textContent.trim();
+            _vProducto = id.parentElement.parentElement.children[2].textContent.trim();
+
+            $('#DivBusqueda').modal('hide');
+            $('#TxtPreguntaModalPCerrar').text('¿Esté seguro de cerrar el contrato ' + _vContratoCerrar + ' - ' + _vProducto + ' ?');
+            $('#DivMensajePreguntaCerrar').modal({ show: true });
+        }
+
+        function InactivarContrato(id) {
+            _vContratoCerrar = id.parentElement.parentElement.children[0].textContent.trim();
+            _vProducto = id.parentElement.parentElement.children[2].textContent.trim();
+            $('#SpanTipo').html('Inactivar');
+            $('#DivBusqueda').modal('hide');
+            $('#TxtPreguntaModalPCerrar').text('¿Esté seguro de inactivar el contrato ' + _vContratoCerrar + ' - ' + _vProducto + ' ?');
+            $('#DivMensajePreguntaCerrar').modal({ show: true });
+        }
+
+
+        function BuscarMaestro(id) {
+            var vContrato = id.parentElement.parentElement.children[0].textContent.trim();
+            var vCompania = $('#CboCompania').val();
+            var vTipoCliente = $('#CboTipoCliente').val();
+            var vCliente = $('#TxtCliente').val();
+
+
+            var mensaj = '<p>Número de contrato-producto : ' + _numeroContratoProducto + ' </p>'
+            $('#TxtNumeroContratoDetalle').html(mensaj);
+
+            var mensaje = '<p>Número de contrato: ' + vContrato + ' </p>'
+            $('#TxtNumeroContrato').html(mensaje);
+
+
+
+            var b = $.post(myVar + '/Home/GuardarContrato', { IdMaestro: vContrato }, function (dat) {
+                _numeroContratoProducto = dat;
+                var mensaj = '<p>Número de contrato-producto : ' + _numeroContratoProducto + ' </p>'
+                $('#TxtNumeroContratoDetalle').html(mensaj);
+                $('#BtnNuevoProducto').prop('disabled', false);
+                $('#BtnAlmacenaDetalle').prop('disabled', false);
+                $('#BtnAlmacenaAnexos').prop('disabled', false);
+                $('#BtnAlmacenaDelta').prop('disabled', false);
+                $('#BtnAlmacenaPrecio').prop('disabled', false);
+                $('#BtnAlmacenaOtroSi').prop('disabled', false);
+
+            });
+            LimpiarDetalle();
+            LimpiarDelta();
+            LimpiarPrecio();
+            Habilitar();
+            $('#DivBusqueda').modal('hide');
+
+
+        }
+
+        function LPad(str, max) {
+            str = str.toString();
+            return str.length < max ? LPad("0" + str, max) : str;
+        }
+
+        function ProcesarFecha(valor) {
+            var salida = '';
+            var indice = -1;
+            var indiceMax = -1;
+
+            indice = (valor.indexOf('('));
+
+            if (indice >= 0) {
+                indiceMax = (valor.indexOf(')'));
+                salida = valor.substring(indice+1, indiceMax);
+
+                var seconds = Number(salida);
+                var fecha = new Date(seconds);
+                var curr_date = fecha.getDate();
+                var curr_month = fecha.getMonth() + 1;
+                var curr_year = fecha.getFullYear();
+
+                //salida = LPad(curr_year, 4) + "-" + LPad(curr_month, 2) + "-" + LPad(curr_date, 2);
+                salida = LPad(curr_date, 2) + "-" + LPad(curr_month, 2) + "-" + LPad(curr_year, 4);
+            }
+            else
+                salida = valor;
+
+            return salida;
+        }
+
+        function BuscarDetalle(id) {
+            var vIdProducto = id.parentElement.parentElement.children[0].textContent.trim();
+            _numeroContrato = vIdProducto;
+            var mensaje = '<p>Número de contrato: ' + _numeroContrato + ' </p>'
+
+            $('#TxtNumeroContrato').html(mensaje);
+
+            var vContratoProducto = id.parentElement.parentElement.children[2].textContent.trim();
+            _numeroContratoProducto = vContratoProducto;
+            mensaje = '<p>Número de contrato-producto : ' + _numeroContratoProducto + ' </p>'
+
+            $('#TxtNumeroContratoProducto').html(mensaje);
+
+
+            var a = $.post(myVar + '/Home/ObtenerDetalle', { contratoProducto: vContratoProducto }, function (d) {
+
+                //debugger;
+                esInhabilitado = (d.Cerrado == -1);
+                $('#CboProducto').val(d.Producto);
+                $('#TxtPrecio').val(d.Precio_producto);
+                $('#ChkEscalado').prop('checked', d.Escalado);
+                $('#TxtEscalado').val(d.Escalado);
+                $('#TxtPrecioEscalado').val(d.Precio_escalado);
+                $('#TxtConsumoContratado').val(d.Consumo_contratado);
+                $('#ChkClausulaToP').prop('checked', d.C_top);
+                $('#TxToP').val(d.Top);
+                $('#CboPeriodicidadTop').val(d.Periodicidad);
+                $('#ChkAlguienTanques').prop('checked', d.Alquiler_tanques);
+                $('#ChkArrendamientoEq').prop('checked', d.Arriendo_equipo);
+                $('#TxtCanonArriendo').val(d.Canon_arrendamiento);
+                $('#TxtGarantia').val(d.Garantia);
+                $('#CboFirmadoPor').val(d.Firmado_por);
+
+                var vFechaInicio = ProcesarFecha(d.Fecha_inicio);
+                var vFechaInicio = ProcesarFecha(d.Fecha_inicio);
+                $('#TxtFechaInicioDetalle').val(vFechaInicio);
+                var vFechaFirmado = ProcesarFecha(d.Fecha_firmado);
+                $('#TxtFechaFirmado').val(vFechaFirmado);
+                var vFechaFinalizacion = ProcesarFecha(d.Fecha_finalizacion);
+                $('#TxtFechaFinalizacion').val(vFechaFinalizacion);
+                var vFechaFinalizacion = ProcesarFecha(d.Fecha_finaliza_pro);
+                $('#TxtFechaFinalizacionPr').val(vFechaFinalizacion);
+                var vFechaInicioSum = ProcesarFecha(d.Inicio_suministro);
+                //$('#TxtInicioSuministro').val(d.Inicio_suministro);
+                $('#TxtInicioSuministro').val(vFechaInicioSum);
+
+                $('#TxtVigenciaMeses').val(d.Vigencia_meses);
+                $('#TxtVigenciaAutoMeses').val(d.Vigencia_auto_meses);
+                $('#TxtTerminacionCon').val(d.Aviso_terminacion_con);
+                $('#TxtCondicionesEsp').val(d.Condiciones_especiales);
+                $('#ChkClausulaTracto').prop('checked', d.Tiempo_espera_trac);
+                $('#TxtHorasMinimasEsp').val(d.Horas_min_espera);
+                $('#ChkContratoComodato').prop('checked', d.Contrato_comodato);
+                $('#TxtPlazoPagoDias').val(d.Plazo_pago_dias);
+                $('#ChkMultaVencimiento').prop('checked', d.Multa_vencimiento_fac);
+                $('#TxtPorcentajeMulta').val(d.Porcentaje_multa);
+                $('#TxtAumentoPrecios').val(d.Aumento_precio);
+                //TxtPrecio
+                $('#CboProducto').prop('disabled', false);
+                $('#TxtPrecio').prop('disabled', false);
+                $('#ChkEscalado').prop('disabled', true);
+                $('#TxtEscalado').prop('disabled', true);
+                $('#TxtPrecioEscalado').prop('disabled', true);
+                $('#TxtConsumoContratado').prop('disabled', false);
+                $('#ChkClausulaToP').prop('disabled', false);
+                $('#TxToP').prop('disabled', false);
+                $('#CboPeriodicidadTop').prop('disabled', false);
+                $('#ChkAlguienTanques').prop('disabled', true);
+                $('#ChkArrendamientoEq').prop('disabled', true);
+                $('#TxtCanonArriendo').prop('disabled', true);
+                $('#TxtGarantia').prop('disabled', true);
+                $('#CboFirmadoPor').prop('disabled', true);
+                $('#TxtFechaInicioDetalle').prop('disabled', true);
+                $('#TxtFechaFirmado').prop('disabled', true);
+                $('#TxtFechaFinalizacion').prop('disabled', true);
+                $('#TxtFechaFinalizacionPr').prop('disabled', true);
+                $('#TxtInicioSuministro').prop('disabled', true);
+                $('#TxtVigenciaMeses').prop('disabled', true);
+                $('#TxtVigenciaAutoMeses').prop('disabled', true);
+                $('#TxtTerminacionCon').prop('disabled', true);
+                $('#TxtCondicionesEsp').prop('disabled', true);
+                $('#ChkClausulaTracto').prop('disabled', true);
+                $('#TxtHorasMinimasEsp').prop('disabled', true);
+                $('#ChkContratoComodato').prop('disabled', true);
+                $('#TxtPlazoPagoDias').prop('disabled', true);
+                $('#ChkMultaVencimiento').prop('disabled', true);
+                $('#TxtPorcentajeMulta').prop('disabled', true);
+                $('#TxtAumentoPrecios').prop('disabled', true);
+
+                $('#BtnAlmacenaDetalle').prop('disabled', false);
+                $('#BtnAlmacenaAnexos').prop('disabled', false);
+                $('#BtnAlmacenaOtroSi').prop('disabled', false);
+
+                openTab(event, 'Detalle')
+
+                $('#DivBusqueda').modal('hide');
+
+                ObtenerAnexos(vContratoProducto);
+                ObtenerOtroSi(vContratoProducto);
+                TraerDatosCliente();
+
+                var b = $.post(myVar + '/Home/ObtenerDelta', { contratoProducto: vContratoProducto }, function (d) {
+
+
+                    $('#TxtEE').val(d.Deltaee);
+                    $('#TxtIpx').val(d.Deltaip);
+                    $('#TxtDiesel').val(d.Deltadiesel);
+                    $('#TxtIPP').val(d.Deltaipp);
+                    $('#TxtGas').val(d.Deltagas);
+                    $('#TxtTRM').val(d.Deltatrm);
+                    $('#TxtOtros').val(d.Deltaotros);
+                    $('#TxtVDiesel').val(d.Diesel);
+                    $('#TxtIPC2').val(d.Ipc);
+                    $('#TxtUSD3').val(d.Usd);
+                    $('#TxtEnergia').val(d.Energia);
+                    $('#TxtVOtros').val(d.Otros);
+
+                    $('#TxtEE').prop('disabled', true);
+                    $('#TxtIpx').prop('disabled', true);
+                    $('#TxtDiesel').prop('disabled', true);
+                    $('#TxtIPP').prop('disabled', true);
+                    $('#TxtGas').prop('disabled', true);
+                    $('#TxtTRM').prop('disabled', true);
+                    $('#TxtOtros').prop('disabled', true);
+                    $('#TxtVDiesel').prop('disabled', true);
+                    $('#TxtIPC2').prop('disabled', true);
+                    $('#TxtUSD3').prop('disabled', true);
+                    $('#TxtEnergia').prop('disabled', true);
+                    $('#TxtVOtros').prop('disabled', true);
+
+                    $('#BtnAlmacenaDelta').prop('disabled', true);
+
+                    var c = $.post(myVar + '/Home/ObtenerPrecio', { contratoProducto: vContratoProducto }, function (d) {
+
+                        $('#TxtPrecioValorA1').val(d.Valor_ano1);
+                        $('#TxtPrecioValorA2').val(d.Valor_ano2);
+                        $('#TxtPrecioValorA3').val(d.Valor_ano3);
+                        $('#TxtPrecioValorA4').val(d.Valor_ano4);
+                        $('#TxtPrecioValorA5').val(d.Valor_ano5);
+                        $('#ChkOtroSi').prop('checked', d.Otrosi);
+                        $('#ChkVigencia').prop('checked', d.Vigencia);
+                        //$('#TxtEstatal').val(d.Estatal);
+                        $('#TxtEstatal').prop('checked', d.Estatal);
+                        $('#TxtAsignacionPres').val(d.Asignacion_presupuestal);
+                        $('#TxtRubroPresupuestal').val(d.No_rubro_presupuestal);
+                        $('#TxtCertificadoDisponible').val(d.Certificado_disponible);
+                        $('#FechaActaFechaInicioP').val(d.Acta_fecha_inicio);
+                        $('#TxtTotalAdicionesP').val(d.Total_adiciones);
+                        $('#TxtTotalProrrogaMesesP').val(d.Total_prorroga_mes);
+                        $('#TxtFacturaInicialP').val(d.Numero_factura_inicial);
+                        $('#TxtFacturaFinalP').val(d.Numero_factura_final);
+                        $('#TxtIDP').val(d.Id);
+                        $('#TxtSerialP').val(d.Serial)
+
+                        $('#TxtPrecioValorA1').prop('disabled', true);
+                        $('#TxtPrecioValorA2').prop('disabled', true);
+                        $('#TxtPrecioValorA3').prop('disabled', true);
+                        $('#TxtPrecioValorA4').prop('disabled', true);
+                        $('#TxtPrecioValorA5').prop('disabled', true);
+                        $('#ChkOtroSi').prop('disabled', true);
+                        $('#ChkVigencia').prop('disabled', true);
+                        $('#TxtEstatal').prop('disabled', true);
+                        $('#TxtAsignacionPres').prop('disabled', true);
+                        $('#TxtRubroPresupuestal').prop('disabled', true);
+                        $('#TxtCertificadoDisponible').prop('disabled', true);
+                        $('#FechaActaFechaInicioP').prop('disabled', true);
+                        $('#TxtTotalAdicionesP').prop('disabled', true);
+                        $('#TxtTotalProrrogaMesesP').val(d.Total_prorroga_mes);
+                        $('#TxtFacturaInicialP').prop('disabled', true);
+                        $('#TxtFacturaFinalP').prop('disabled', true);
+                        $('#TxtIDP').prop('disabled', true);
+
+                        $('#BtnAlmacenaPrecio').prop('disabled', true);
+                        Permisos();
+                    });
+                });
+
+                
+                
+            });
+        }
+
+        $("#CboCompania").on('change', function () {
+            var comp = $('#CboCompania').val();
+            var l = $.post(myVar + '/Home/ListarTipoCliente', { compania: comp }, function (data) {
+                $('#CboTipoCliente').empty();
+                $.each(data, function (i, item) {
+                    $('#CboTipoCliente').append($('<option>', {
+                        value: item.Codigo,
+                        text: item.Descripcion
+                    }));
+                });
+            });
+        });
+
+        $("#CboCompaniaClo").on('change', function () {
+            var comp = $('#CboCompaniaClo').val();
+            var l = $.post(myVar + '/Home/ListarTipoCliente', { compania: comp }, function (data) {
+                $('#CboTipoClienteClo').empty();
+                $.each(data, function (i, item) {
+                    $('#CboTipoClienteClo').append($('<option>', {
+                        value: item.Codigo,
+                        text: item.Descripcion
+                    }));
+                });
+            });
+        });
+
+        $("#TxtCliente").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: myVar + "/Home/AutocompletarCliente",
+                    type: "POST",
+                    dataType: "json",
+                    data: { termino: request.term, compania: $('#CboCompania').val(), tipoCliente: $('#CboTipoCliente').val()},
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.Descripcion, value: item.Descripcion };
+                        }))
+                    }
+                })
+            },
+            messages: {
+                noResults: "", results: ""
+            }
+        });
+
+        $("#TxtClienteClo").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: myVar + "/Home/AutocompletarCliente",
+                    type: "POST",
+                    dataType: "json",
+                    data: { termino: request.term, compania: $('#CboCompaniaClo').val(), tipoCliente: $('#CboTipoClienteClo').val() },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.Descripcion, value: item.Descripcion };
+                        }))
+                    }
+                })
+            },
+            appendTo:'#DivClonacion',
+            messages: {
+                noResults: "", results: ""
+            }
+        });
+
+        $("#CboProducto").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: myVar + "/Home/AutocompletarProducto",
+                    type: "POST",
+                    dataType: "json",
+                    data: { termino: request.term},
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.Descripcion, value: item.Descripcion};
+                        }))
+                    }
+                })
+            },
+            messages: {
+                noResults: "", results: ""
+            }
+        });
+
+        $("#TxtCliente").on('change', function () {
+            LimpiarDetalle();
+            LimpiarDelta();
+            LimpiarPrecio();
+            LimpiarGrillas();
+            TraerDatosCliente();
+        });
+
+        $("#TxtClienteClo").on('change', function () {
+            LimpiarDetalle();
+            LimpiarDelta();
+            LimpiarPrecio();
+            LimpiarGrillas();
+            TraerDatosClienteClo();
+        });
+
+
+        function TraerDatosCliente() {
+            var comp = $('#CboCompania').val();
+            var iCli = $("#TxtCliente").val();
+            var a = $.post(myVar + '/Home/ListarNitCliente', { compania: comp, idCliente: iCli }, function (data) {
+                $("#TxtIdentificacion").val(data);
+                var b = $.post(myVar + '/Home/ListarVendendor', { compania: comp, idCliente: iCli }, function (data) {
+                    $("#TxtVendedor").val(data);
+                    var c = $.post(myVar + '/Home/CorreoVendendor', { idCliente: iCli, compania: comp }, function (data) {
+                        $("#TxtCorreo").val(data);
+                    });
+                });
+            });
+        }
+
+        function TraerDatosClienteClo() {
+            var comp = $('#CboCompaniaClo').val();
+            var iCli = $("#TxtClienteClo").val();
+            var a = $.post(myVar + '/Home/ListarNitCliente', { compania: comp, idCliente: iCli }, function (data) {
+                $("#TxtIdentificacionClo").val(data);
+                var b = $.post(myVar + '/Home/ListarVendendor', { compania: comp, idCliente: iCli }, function (data) {
+                    $("#TxtVendedor").val(data);
+                    var c = $.post(myVar + '/Home/CorreoVendendor', { idCliente: iCli, compania: comp }, function (data) {
+                        $("#TxtCorreo").val(data);
+                    });
+                });
+            });
+        }
+
+        //*****************//
+        //**    Anexo    **//
+        //*****************//
+        $('#TxtAnexo').on('change', function (e) {
+            //debugger;
+            var files = e.target.files;
+            if (files.length > 0) {
+                var data = new FormData();
+                for (var x = 0; x < files.length; x++) {
+                    if (files[0].size >= 20480000) {
+                        $('#TxtPreguntaModal').text('El tamaño del archivo ha sobrepasado el tamaño máximo permitido para la aplicación');
+                        $('#DivMensaje').modal({ show: true });
+                        return false;
+                    }
+                    data.append("file" + x, files[x]);
+                    _archivo = files[0].name;
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: myVar + '/Home/UploadAnexo',
+                    contentType: false,
+                    processData: false,
+                    data: data,
+                    success: function (result) {
+                        _archivo = result;
+                    },
+                    error: function (xhr, status, p3, p4) {
+                        //debugger;
+                        var err = "Error " + " " + status + " " + p3 + " " + p4;
+                        if (xhr.responseText && xhr.responseText[0] == "{")
+                            err = JSON.parse(xhr.responseText).Message;
+                        alert("Error no definido por el sistema", err);
+                        $('#TxtAnexo').files = null;
+
+                    }
+                });
+
+            }
+            else {
+                alert("This browser doesn't support HTML5 file uploads!");
+            }
+        });
+
+
+
+        //*****************//
+        //**   Detalle   **//
+        //*****************//
+        $('#ChkClausulaToP').on('change', function () {
+            var valor = $('#ChkClausulaToP').prop('checked');
+            $('#TxToP').prop('disabled', !valor);
+        });
+
+        $('#ChkAlguienTanques').on('change', function () {
+            var valor = $('#ChkAlguienTanques').prop('checked');
+            $('#TxtCanonArriendo').prop('disabled', !valor);
+        });
+
+        $('#TxtFechaFinalizacionPr').on('change', function () {
+            var finalizacion = $('#TxtFechaFinalizacion').val();
+            var prorroga = $('#TxtFechaFinalizacionPr').val();
+
+            if (date.parse(prorroga) < date.parse(finalizacion)) {
+                var mensaje = '<p>La fecha de <b>prorroga</b>, debe ser mayor a la fecha de <b>finalización</b></p>';
+                $('#TxtPreguntaModal').html(mensaje);
+                $('#DivMensaje').modal({ show: true });
+                $('#TxtFechaFinalizacionPr').val($('#TxtFechaFinalizacion').val())
+            }
+        });
+
+        $('#TxtFechaFinalizacion').on('change', function () {
+            //debugger;
+            var finalizacion = $('#TxtFechaFinalizacion').val();
+            var inicio = $('#TxtFechaInicioDetalle').val();
+
+            if (date.parse(inicio) > date.parse(finalizacion)) {
+                var mensaje = '<p>La fecha de <b>inicio</b>, debe ser mayor a la fecha de <b>finalización</b></p>';
+                $('#TxtPreguntaModal').html(mensaje);
+                $('#DivMensaje').modal({ show: true });
+                $('#TxtFechaFinalizacion').val($('#TxtFechaInicioDetalle').val())
+            }
+        });
+
+        $('#TxtInicioSuministro').on('change', function () {
+            var inicio = date.parse($('#TxtInicioSuministro').val());
+            var firmado = date.parse($('#TxtFechaFirmado').val());
+
+            if (inicio < firmado) {
+                var mensaje = '<p>La fecha de <b>Inicio de suministro</b>, debe ser mayor a la fecha de <b>firmado</b></p>';
+                $('#TxtPreguntaModal').html(mensaje);
+                $('#DivMensaje').modal({ show: true });
+                $('#TxtInicioSuministro').val($('#TxtFechaFirmado').val());
+            }
+        });
+
+        $('#ChkClausulaTracto').on('change', function () {
+            var valor = $('#ChkClausulaTracto').prop('checked');
+            $('#TxtHorasMinimasEsp').prop('disabled', !valor);
+        });
+
+        $('#ChkMultaVencimiento').on('change', function () {
+            var valor = $('#ChkMultaVencimiento').prop('checked');
+            $('#TxtPorcentajeMulta').prop('disabled', !valor);
+        });
+
+        $('#BuscarInforme').on('click', function () {
+            $('#TxtFechaInicialInfo').prop('disabled', true);
+            $('#TxtFechaFinalInfo').prop('disabled', true);
+            $('#BuscarInforme').prop('disabled', true);
+            var feI = $('#TxtFechaInicialInfo').val();
+            var feF = $('#TxtFechaFinalInfo').val();
+            var a = $.post(myVar + '/Home/ProcesarInforme', { fechaI: feI, fechaF: feF }, function (data) {
+                window.open(data, 'Descarga Informe');
+                $('#TxtPreguntaModal').text('Archivo descargado con éxito');
+                $('#DivMensaje').modal({ show: true });
+                $('#TxtFechaInicialInfo').prop('disabled', false);
+                $('#TxtFechaFinalInfo').prop('disabled', false);
+                $('#BuscarInforme').prop('disabled', false);
+            });
+        });
+
+
+
+
+
+    </script>
+}

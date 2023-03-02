@@ -1,0 +1,129 @@
+﻿<style>
+    .centerDetalle {
+        margin: auto;
+        width: 15%;
+        padding: 10px;
+    }
+</style>
+
+<div class="row" >
+    <div class="col-sm-6" style="font-size:smaller">
+        <label> Vendedor:</label>
+        <input id="TxtVendedor" type="text" style="width:60%" disabled />
+        <br />
+        <label> Correo:</label>
+        <input id="TxtCorreo" type="email" style="width:60%" disabled />
+
+    </div>
+    <br />
+    <div class="col-sm-6" style="font-size:smaller">
+        <label> Sucursal:</label>
+        <input id="TxtSucursal" type="text" maxlength="15" disabled="disabled" />
+        <label> Regional:</label>
+        <input id="TxtRegional" type="text" maxlength="15" disabled="disabled" />
+    </div>
+    <br />
+    <div class="col-sm-6" style="font-size:smaller" >
+        <label > Producto:</label >
+        <input type="text" name="CboProducto" id="CboProducto" maxlength="100" />
+        @*<option value="-1" > Seleccione</option >
+        <option value="1" > Producto 1</option >
+        <option value="2" > Producto 2</option >
+        <option value="3" > Producto 3</option >*@
+        </input > <br />
+        <label > Precio Producto:</label >
+        <input id="TxtPrecio" type="number" maxlength="15" max="999999999999" /> <br />
+        <label> Escalado:</label >
+        <input id="ChkEscalado" name="ChkEscalado" type="checkbox" />
+        <label > Cantidad escalado:</label >
+        <input id="TxtEscalado" name="TxtEscalado" type="text" maxlength="64" /> <br />
+        <label > Precio escalado:</label >
+        <input id="TxtPrecioEscalado" type="text" maxlength="15"/>
+    </div >
+    <br />
+    <div class="col-sm-6" style="font-size:smaller" >
+        <label > Consumo Contratado M3/Kg:</label >
+        <input id="TxtConsumoContratado" type="number" max="9999999" min="0" /><br />
+        <label > Clausula de ToP:</label >
+        <input id="ChkClausulaToP" name="ChkClausulaToP" type="checkbox" />
+        <label > ToP:</label >
+        <input id="TxToP" type="number" maxlength="9" max="999999999" disabled /> <br />
+        <label > Periodicidad:</label >
+        <select name="CboPeriodicidadTop" id="CboPeriodicidadTop" >
+            <option value="-1" > Seleccione</option >
+            <option value="1" > Mensual</option >
+            <option value="2" > BiMensual</option >
+            <option value="3" > Trimestral</option >
+            <option value="4" > Semestral</option >
+            <option value="5" > Anual</option >
+        </select ><br />
+        <label > ¿Alguiler de tanques?:</label >
+        <input id="ChkAlguienTanques" name="ChkAlguienTanques" type="checkbox" />
+    </div >
+    <br />
+    <div class="col-sm-6" style="font-size:smaller" >
+        <label>¿Arrendamiento de equipos?:</label >
+        <input id="ChkArrendamientoEq" name="ChkArrendamientoEq" type="checkbox" />
+        <label>Canon de arrendamiento:</label >
+        <input id="TxtCanonArriendo" type="number" max="9999999" min="0" disabled />
+        <label > Garantia:</label >
+        <input id="TxtGarantia" type="text" maxlength="30" style="width:60%"/> <br />
+        <label> Firmado por:</label >
+        <select name="CboFirmadoPor" id="CboFirmadoPor" >
+            <option value="-1" > Seleccione</option >
+            <option value="1" > Las Partes</option >
+            <option value="2" > El cliente</option >
+            <option value="3" > La compañía</option >
+        </select >
+    </div >
+    <br />
+    <div class="col-sm-6" style="font-size:smaller">
+        <label> Fecha de inicio:</label>
+        <input id="TxtFechaInicioDetalle" name="TxtFechaInicioDetalle" type="text" placeholder="dd/mm/yyyy"  > <br />
+        <label> Fecha de firmado:</label>
+        <input id="TxtFechaFirmado" name="TxtFechaFirmado" type="text" placeholder="dd/mm/yyyy"/> <br />
+        <label> Fecha de finalización:</label>
+        <input id="TxtFechaFinalizacion" name="TxtFechaFinalizacion" type="text" placeholder="dd/mm/yyyy"/>
+    </div>
+    <br />
+    <div class="col-sm-6" style="font-size:smaller" >
+        <label > Fecha de finalización prorroga:</label >
+        <input id="TxtFechaFinalizacionPr" name="TxtFechaFinalizacionPr" type="text" placeholder="dd/mm/yyyy"/><br />
+        <label > Inicio suministro:</label >
+        <input id="TxtInicioSuministro" name="TxtInicioSuministro" type="text" placeholder="dd/mm/yyyy"/><br />
+        <label > Vigencia meses:</label >
+        <input id="TxtVigenciaMeses" type="number" max="999" min="0" />
+        <label > Vigencia automética en meses:</label >
+        <input id="TxtVigenciaAutoMeses" type="number" max="999" min="0"/>
+    </div >
+    <br />
+    <div class="col-sm-6" style="font-size:smaller" >
+        <label> Aviso Terminación Contrato en dias:</label >
+        <input id="TxtTerminacionCon" name="TxtTerminacionCon" type="number" min="0" max="180" /><br />
+        <label> Condiciones Especiales:</label >
+        <input id="TxtCondicionesEsp" name="TxtCondicionesEsp" type="text" maxlength="64" required />
+        <label> Clausula tiempos de espera tractomulas:</label >
+        <input id="ChkClausulaTracto" name="ChkClausulaTracto" type="checkbox" /><br />
+        <label> Horas mínimas de espera:</label >
+        <input id="TxtHorasMinimasEsp" type="number" max="999" min="0" disabled />
+    </div >
+    <br />
+    <div class="col-sm-6" style="font-size:smaller" >
+        <label> Contrato de Comodato:</label >
+        <input id="ChkContratoComodato" name="ChkContratoComodato" type="checkbox" />
+        <label> Plazo de pago en días:</label >
+        <input id="TxtPlazoPagoDias" name="TxtPlazoPagoDias" type="number" min="0" max="180" /><br />
+        <label> Multa por Vencimiento de facturas:</label >
+        <input id="ChkMultaVencimiento" name="ChkMultaVencimiento" type="checkbox" /><br />
+        <label> Porcentaje Multa:</label >
+        <input id="TxtPorcentajeMulta" name="TxtPorcentajeMulta" type="text" maxlength="64" disabled/><br />
+        <label> Aumento de precios:</label >
+        <input id="TxtAumentoPrecios" name="TxtAumentoPrecios" type="text" maxlength="30" />
+    </div>
+    <br />
+</div >
+<div class="row" style="font-size:smaller">
+    <button class="btn" id="BtnAlmacenaDetalle" name="BtnAlmacenaDetalle" style="background-color:blueviolet; width:50%; margin-left:25%" disabled ><i class="fa fa-save"></i> Almacenar detalle</button>
+</div>
+
+

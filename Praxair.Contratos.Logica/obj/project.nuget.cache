@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "dhEg0dRHHJW/fWRLfHt/nTc3G1pputk2jyr0DsOz71H4i4eFthGVHtW27ONbvLG07RkhTVvQJjLe70PvSkrf3A==",
+  "success": true,
+  "projectFilePath": "C:\\Proyectos\\Praxair\\Contratos\\Fuentes\\Contratos\\Praxair.Contratos.Logica\\Praxair.Contratos.Logica.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\MIvan\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\MIvan\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

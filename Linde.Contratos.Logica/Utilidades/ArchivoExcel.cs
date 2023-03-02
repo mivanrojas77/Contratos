@@ -1,0 +1,280 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Linde.Contratos.LogicaV2.Utilidades
+{
+    class ArchivoExcel
+    {
+        public string ConstruirInforme(List<Objeto.Informe> info) {
+            string n = NombreSalida();
+            int fila = 2;
+            string col = "";
+            string nombre = System.Configuration.ConfigurationManager.AppSettings["UbicacionArchivo"] + n + ".xlsx";
+            string nombreSalida = System.Configuration.ConfigurationManager.AppSettings["UrlArchivo"] + n + ".xlsx";
+            try
+            {
+                using (SpreadsheetLight.SLDocument doc = new SpreadsheetLight.SLDocument()) {
+                    doc.SetCellValue("A1", "C");
+                    doc.SetCellValue("B1", "ID_CLIENTE");
+                    doc.SetCellValue("C1", "IDENTIFICACION");
+                    doc.SetCellValue("D1", "FECHA_REGISTRO");
+                    doc.SetCellValue("E1", "RAZON__CLI");
+                    doc.SetCellValue("F1", "ID_CONTRATO");
+                    doc.SetCellValue("G1", "FECHA_REC_CONRATO_PRODUCTO");
+                    doc.SetCellValue("H1", "PRODUCTO");
+                    doc.SetCellValue("I1", "CONSUMO_CONTRATADO");
+                    doc.SetCellValue("J1", "PRECIO_PRODUCTO");
+                    doc.SetCellValue("K1", "C_TOP");
+                    doc.SetCellValue("L1", "TOP");
+                    doc.SetCellValue("M1", "ESCALADO");
+                    doc.SetCellValue("N1", "CANTIDAD_ESCALADO");
+                    doc.SetCellValue("O1", "PRECIO_ESCALADO");
+                    doc.SetCellValue("P1", "PERIODICIDAD");
+                    doc.SetCellValue("Q1", "ALQUILER_TANQUES");
+                    doc.SetCellValue("R1", "ARRIENDO_EQUIPO");
+                    doc.SetCellValue("S1", "CANON_ARRENDAMIENTO");
+                    doc.SetCellValue("T1", "FECHA_INICIO");
+                    doc.SetCellValue("U1", "FECHA_FIRMADO");
+                    doc.SetCellValue("V1", "FECHA_FINALIZACION");
+                    doc.SetCellValue("W1", "GARANTIA");
+                    doc.SetCellValue("X1", "FIRMADO_POR");
+                    doc.SetCellValue("Y1", "FECHA_FINALIZA_PRO");
+                    doc.SetCellValue("Z1", "AVISO_TERMINACION_CON");
+                    doc.SetCellValue("AA1", "INICIO_SUMINISTRO");
+                    doc.SetCellValue("AB1", "CONDICIONES_ESPECIALES");
+                    doc.SetCellValue("AC1", "VIGENCIA_MESES");
+                    doc.SetCellValue("AD1", "VIGENCIA_AUTO_MESES");
+                    doc.SetCellValue("AE1", "TIEMPO_ESPERA_TRAC");
+                    doc.SetCellValue("AF1", "HORAS_MIN_ESPERA");
+                    doc.SetCellValue("AG1", "CONTRATO_COMODATO");
+                    doc.SetCellValue("AH1", "PLAZO_PAGO_DIAS");
+                    doc.SetCellValue("AI1", "MULTA_VENCIMIENTO_FAC");
+                    doc.SetCellValue("AJ1", "PORCENTAJE_MULTA");
+                    doc.SetCellValue("AK1", "AUMENTO_PRECIO");
+                    doc.SetCellValue("AL1", "DELTAEE");
+                    doc.SetCellValue("AM1", "DELTAIP");
+                    doc.SetCellValue("AN1", "DELTADIESEL");
+                    doc.SetCellValue("AO1", "DELTAIPP");
+                    doc.SetCellValue("AP1", "DELTAGAS");
+                    doc.SetCellValue("AQ1", "DELTATRM");
+                    doc.SetCellValue("AR1", "DELTAOTROS");
+                    doc.SetCellValue("AS1", "DIESEL");
+                    doc.SetCellValue("AT1", "IPC");
+                    doc.SetCellValue("AV1", "USD");
+                    doc.SetCellValue("AW1", "ENERGIA");
+                    doc.SetCellValue("AX1", "OTROS");
+                    doc.SetCellValue("AY1", "VALOR_ANO1");
+                    doc.SetCellValue("AZ1", "VALOR_ANO2");
+                    doc.SetCellValue("BA1", "VALOR_ANO3");
+                    doc.SetCellValue("BB1", "VALOR_ANO4");
+                    doc.SetCellValue("BC1", "VALOR_ANO5");
+                    doc.SetCellValue("BD1", "OTROSI");
+                    doc.SetCellValue("BE1", "VIGENCIA");
+                    doc.SetCellValue("BF1", "ESTATAL");
+                    doc.SetCellValue("BG1", "ASIGNACION_PRESUPUESTAL");
+                    doc.SetCellValue("BH1", "NO_RUBRO_PRESUPUESTAL");
+                    doc.SetCellValue("BI1", "CERTIFICADO_DISPONIBLE");
+                    doc.SetCellValue("BJ1", "ACTA_FECHA_INICIO");
+                    doc.SetCellValue("BK1", "NUMERO_FACTURA_INICIAL");
+                    doc.SetCellValue("BL1", "NUMERO_FACTURA_FINAL");
+                    doc.SetCellValue("BM1", "ID_CONTRATO_");
+                    doc.SetCellValue("BN1", "SERIAL");
+                    doc.SetCellValue("BO1", "ID_MAESTRO");
+                    doc.SetCellValue("BQ1", "ALERTA");
+                    doc.SetCellValue("BR1", "ALERTA2");
+                    doc.SetCellValue("BS1", "ALERTA3");
+                    doc.SetCellValue("BT1", "CERRADO");
+                    doc.SetCellValue("BU1", "USUARIO");
+                    doc.SetCellValue("BV1", "ID_OTROSI");
+                    doc.SetCellValue("BW1", "ID_CONTRATO_PRODUCTO");
+                    doc.SetCellValue("BX1", "FECHA_ACTA");
+                    doc.SetCellValue("BY1", "TOTAL_ADICIONES");
+                    doc.SetCellValue("BZ1", "TOTAL_PRORROGA_MES");
+                    doc.SetCellValue("CA1", "ID_ANEXO");
+                    doc.SetCellValue("CB1", "ANEXO");
+                    foreach (var reg in info)
+                    {
+                        doc.SetCellValue("A" + fila.ToString(), reg.C);
+                        doc.SetCellValue("B" + fila.ToString(), reg.ID_CLIENTE);
+                        doc.SetCellValue("C" + fila.ToString(), reg.IDENTIFICACION);
+                        doc.SetCellValue("D" + fila.ToString(), reg.FECHA_REGISTRO);
+                        doc.SetCellValue("E" + fila.ToString(), reg.RAZON__CLI);
+                        doc.SetCellValue("F" + fila.ToString(), reg.ID_CONTRATO);
+                        doc.SetCellValue("G" + fila.ToString(), reg.FECHA_REC_CONRATO_PRODUCTO);
+                        doc.SetCellValue("H" + fila.ToString(), reg.PRODUCTO);
+                        doc.SetCellValue("I" + fila.ToString(), reg.CONSUMO_CONTRATADO);
+                        doc.SetCellValue("J" + fila.ToString(), reg.PRECIO_PRODUCTO);
+                        doc.SetCellValue("K" + fila.ToString(), reg.C_TOP);
+                        doc.SetCellValue("L" + fila.ToString(), reg.TOP);
+                        doc.SetCellValue("M" + fila.ToString(), reg.ESCALADO);
+                        doc.SetCellValue("N" + fila.ToString(), reg.CANTIDAD_ESCALADO);
+                        doc.SetCellValue("O" + fila.ToString(), reg.PRECIO_ESCALADO);
+                        doc.SetCellValue("P" + fila.ToString(), reg.PERIODICIDAD);
+                        doc.SetCellValue("Q" + fila.ToString(), reg.ALQUILER_TANQUES);
+                        doc.SetCellValue("R" + fila.ToString(), reg.ARRIENDO_EQUIPO);
+                        doc.SetCellValue("S" + fila.ToString(), reg.CANON_ARRENDAMIENTO);
+                        doc.SetCellValue("T" + fila.ToString(), reg.FECHA_INICIO);
+                        doc.SetCellValue("U" + fila.ToString(), reg.FECHA_FIRMADO);
+                        doc.SetCellValue("V" + fila.ToString(), reg.FECHA_FINALIZACION);
+                        doc.SetCellValue("W" + fila.ToString(), reg.GARANTIA);
+                        doc.SetCellValue("X" + fila.ToString(), reg.FIRMADO_POR);
+                        doc.SetCellValue("Y" + fila.ToString(), reg.FECHA_FINALIZA_PRO);
+                        doc.SetCellValue("Z" + fila.ToString(), reg.AVISO_TERMINACION_CON);
+                        doc.SetCellValue("AA" + fila.ToString(), reg.INICIO_SUMINISTRO);
+                        doc.SetCellValue("AB" + fila.ToString(), reg.CONDICIONES_ESPECIALES);
+                        doc.SetCellValue("AC" + fila.ToString(), reg.VIGENCIA_MESES);
+                        doc.SetCellValue("AD" + fila.ToString(), reg.VIGENCIA_AUTO_MESES);
+                        doc.SetCellValue("AE" + fila.ToString(), reg.TIEMPO_ESPERA_TRAC);
+                        doc.SetCellValue("AF" + fila.ToString(), reg.HORAS_MIN_ESPERA);
+                        doc.SetCellValue("AG" + fila.ToString(), reg.CONTRATO_COMODATO);
+                        doc.SetCellValue("AH" + fila.ToString(), reg.PLAZO_PAGO_DIAS);
+                        doc.SetCellValue("AI" + fila.ToString(), reg.MULTA_VENCIMIENTO_FAC);
+                        doc.SetCellValue("AJ" + fila.ToString(), reg.PORCENTAJE_MULTA);
+                        doc.SetCellValue("AK" + fila.ToString(), reg.AUMENTO_PRECIO);
+                        doc.SetCellValue("AL" + fila.ToString(), reg.DELTAEE);
+                        doc.SetCellValue("AM" + fila.ToString(), reg.DELTAIP);
+                        doc.SetCellValue("AN" + fila.ToString(), reg.DELTADIESEL);
+                        doc.SetCellValue("AO" + fila.ToString(), reg.DELTAIPP);
+                        doc.SetCellValue("AP" + fila.ToString(), reg.DELTAGAS);
+                        doc.SetCellValue("AQ" + fila.ToString(), reg.DELTATRM);
+                        doc.SetCellValue("AR" + fila.ToString(), reg.DELTAOTROS);
+                        doc.SetCellValue("AS" + fila.ToString(), reg.DIESEL);
+                        doc.SetCellValue("AT" + fila.ToString(), reg.IPC);
+                        doc.SetCellValue("AV" + fila.ToString(), reg.USD);
+                        doc.SetCellValue("AW" + fila.ToString(), reg.ENERGIA);
+                        doc.SetCellValue("AX" + fila.ToString(), reg.OTROS);
+                        doc.SetCellValue("AY" + fila.ToString(), reg.VALOR_ANO1);
+                        doc.SetCellValue("AZ" + fila.ToString(), reg.VALOR_ANO2);
+                        doc.SetCellValue("BA" + fila.ToString(), reg.VALOR_ANO3);
+                        doc.SetCellValue("BB" + fila.ToString(), reg.VALOR_ANO4);
+                        doc.SetCellValue("BC" + fila.ToString(), reg.VALOR_ANO5);
+                        doc.SetCellValue("BD" + fila.ToString(), reg.OTROSI);
+                        doc.SetCellValue("BE" + fila.ToString(), reg.VIGENCIA);
+                        doc.SetCellValue("BF" + fila.ToString(), reg.ESTATAL);
+                        doc.SetCellValue("BG" + fila.ToString(), reg.ASIGNACION_PRESUPUESTAL);
+                        doc.SetCellValue("BH" + fila.ToString(), reg.NO_RUBRO_PRESUPUESTAL);
+                        doc.SetCellValue("BI" + fila.ToString(), reg.CERTIFICADO_DISPONIBLE);
+                        doc.SetCellValue("BJ" + fila.ToString(), reg.ACTA_FECHA_INICIO);
+                        doc.SetCellValue("BK" + fila.ToString(), reg.NUMERO_FACTURA_INICIAL);
+                        doc.SetCellValue("BL" + fila.ToString(), reg.NUMERO_FACTURA_FINAL);
+                        doc.SetCellValue("BM" + fila.ToString(), reg.ID_CONTRATO_);
+                        doc.SetCellValue("BN" + fila.ToString(), reg.SERIAL);
+                        doc.SetCellValue("BO" + fila.ToString(), reg.ID_MAESTRO);
+                        doc.SetCellValue("BQ" + fila.ToString(), reg.ALERTA);
+                        doc.SetCellValue("BR" + fila.ToString(), reg.ALERTA2);
+                        doc.SetCellValue("BS" + fila.ToString(), reg.ALERTA3);
+                        doc.SetCellValue("BT" + fila.ToString(), reg.CERRADO);
+                        doc.SetCellValue("BU" + fila.ToString(), reg.USUARIO);
+                        doc.SetCellValue("BV" + fila.ToString(), reg.ID_OTROSI);
+                        doc.SetCellValue("BW" + fila.ToString(), reg.ID_CONTRATO_PRODUCTO);
+                        doc.SetCellValue("BX" + fila.ToString(), reg.FECHA_ACTA);
+                        doc.SetCellValue("BY" + fila.ToString(), reg.TOTAL_ADICIONES);
+                        doc.SetCellValue("BZ" + fila.ToString(), reg.TOTAL_PRORROGA_MES);
+                        doc.SetCellValue("CA" + fila.ToString(), reg.ID_ANEXO);
+                        doc.SetCellValue("CB" + fila.ToString(), reg.ANEXO);
+                        fila++;
+                    }
+                    doc.SaveAs(nombre);
+                    doc.Dispose();
+                }
+            }
+            catch (Exception ex) {
+                nombreSalida += "ERR"; 
+            }
+            return nombreSalida;
+        }
+
+        private void CrearRegistro(ref SpreadsheetLight.SLDocument doc, int fila, Objeto.Informe reg)
+        {
+            doc.SetCellValue("A" + fila.ToString(), reg.C);
+            doc.SetCellValue("B" + fila.ToString(), reg.ID_CLIENTE);
+            doc.SetCellValue("C" + fila.ToString(), reg.IDENTIFICACION);
+            doc.SetCellValue("D" + fila.ToString(), reg.FECHA_REGISTRO);
+            doc.SetCellValue("E" + fila.ToString(), reg.RAZON__CLI);
+            doc.SetCellValue("F" + fila.ToString(), reg.ID_CONTRATO);
+            doc.SetCellValue("G" + fila.ToString(), reg.FECHA_REC_CONRATO_PRODUCTO);
+            doc.SetCellValue("H" + fila.ToString(), reg.PRODUCTO);
+            doc.SetCellValue("I" + fila.ToString(), reg.CONSUMO_CONTRATADO);
+            doc.SetCellValue("J" + fila.ToString(), reg.PRECIO_PRODUCTO);
+            doc.SetCellValue("K" + fila.ToString(), reg.C_TOP);
+            doc.SetCellValue("L" + fila.ToString(), reg.TOP);
+            doc.SetCellValue("M" + fila.ToString(), reg.ESCALADO);
+            doc.SetCellValue("N" + fila.ToString(), reg.CANTIDAD_ESCALADO);
+            doc.SetCellValue("O" + fila.ToString(), reg.PRECIO_ESCALADO);
+            doc.SetCellValue("P" + fila.ToString(), reg.PERIODICIDAD);
+            doc.SetCellValue("Q" + fila.ToString(), reg.ALQUILER_TANQUES);
+            doc.SetCellValue("R" + fila.ToString(), reg.ARRIENDO_EQUIPO);
+            doc.SetCellValue("S" + fila.ToString(), reg.CANON_ARRENDAMIENTO);
+            doc.SetCellValue("T" + fila.ToString(), reg.FECHA_INICIO);
+            doc.SetCellValue("U" + fila.ToString(), reg.FECHA_FIRMADO);
+            doc.SetCellValue("V" + fila.ToString(), reg.FECHA_FINALIZACION);
+            doc.SetCellValue("W" + fila.ToString(), reg.GARANTIA);
+            doc.SetCellValue("X" + fila.ToString(), reg.FIRMADO_POR);
+            doc.SetCellValue("Y" + fila.ToString(), reg.FECHA_FINALIZA_PRO);
+            doc.SetCellValue("Z" + fila.ToString(), reg.AVISO_TERMINACION_CON);
+            doc.SetCellValue("AA" + fila.ToString(), reg.INICIO_SUMINISTRO);
+            doc.SetCellValue("AB" + fila.ToString(), reg.CONDICIONES_ESPECIALES);
+            doc.SetCellValue("AC" + fila.ToString(), reg.VIGENCIA_MESES);
+            doc.SetCellValue("AD" + fila.ToString(), reg.VIGENCIA_AUTO_MESES);
+            doc.SetCellValue("AE" + fila.ToString(), reg.TIEMPO_ESPERA_TRAC);
+            doc.SetCellValue("AF" + fila.ToString(), reg.HORAS_MIN_ESPERA);
+            doc.SetCellValue("AG" + fila.ToString(), reg.CONTRATO_COMODATO);
+            doc.SetCellValue("AH" + fila.ToString(), reg.PLAZO_PAGO_DIAS);
+            doc.SetCellValue("AI" + fila.ToString(), reg.MULTA_VENCIMIENTO_FAC);
+            doc.SetCellValue("AJ" + fila.ToString(), reg.PORCENTAJE_MULTA);
+            doc.SetCellValue("AK" + fila.ToString(), reg.AUMENTO_PRECIO);
+            doc.SetCellValue("AL" + fila.ToString(), reg.DELTAEE);
+            doc.SetCellValue("AM" + fila.ToString(), reg.DELTAIP);
+            doc.SetCellValue("AN" + fila.ToString(), reg.DELTADIESEL);
+            doc.SetCellValue("AO" + fila.ToString(), reg.DELTAIPP);
+            doc.SetCellValue("AP" + fila.ToString(), reg.DELTAGAS);
+            doc.SetCellValue("AQ" + fila.ToString(), reg.DELTATRM);
+            doc.SetCellValue("AR" + fila.ToString(), reg.DELTAOTROS);
+            doc.SetCellValue("AS" + fila.ToString(), reg.DIESEL);
+            doc.SetCellValue("AT" + fila.ToString(), reg.IPC);
+            doc.SetCellValue("AV" + fila.ToString(), reg.USD);
+            doc.SetCellValue("AW" + fila.ToString(), reg.ENERGIA);
+            doc.SetCellValue("AX" + fila.ToString(), reg.OTROS);
+            doc.SetCellValue("AY" + fila.ToString(), reg.VALOR_ANO1);
+            doc.SetCellValue("AZ" + fila.ToString(), reg.VALOR_ANO2);
+            doc.SetCellValue("BA" + fila.ToString(), reg.VALOR_ANO3);
+            doc.SetCellValue("BB" + fila.ToString(), reg.VALOR_ANO4);
+            doc.SetCellValue("BC" + fila.ToString(), reg.VALOR_ANO5);
+            doc.SetCellValue("BD" + fila.ToString(), reg.OTROSI);
+            doc.SetCellValue("BE" + fila.ToString(), reg.VIGENCIA);
+            doc.SetCellValue("BF" + fila.ToString(), reg.ESTATAL);
+            doc.SetCellValue("BG" + fila.ToString(), reg.ASIGNACION_PRESUPUESTAL);
+            doc.SetCellValue("BH" + fila.ToString(), reg.NO_RUBRO_PRESUPUESTAL);
+            doc.SetCellValue("BI" + fila.ToString(), reg.CERTIFICADO_DISPONIBLE);
+            doc.SetCellValue("BJ" + fila.ToString(), reg.ACTA_FECHA_INICIO);
+            doc.SetCellValue("BK" + fila.ToString(), reg.NUMERO_FACTURA_INICIAL);
+            doc.SetCellValue("BL" + fila.ToString(), reg.NUMERO_FACTURA_FINAL);
+            doc.SetCellValue("BM" + fila.ToString(), reg.ID_CONTRATO_);
+            doc.SetCellValue("BN" + fila.ToString(), reg.SERIAL);
+            doc.SetCellValue("BO" + fila.ToString(), reg.ID_MAESTRO);
+            doc.SetCellValue("BQ" + fila.ToString(), reg.ALERTA);
+            doc.SetCellValue("BR" + fila.ToString(), reg.ALERTA2);
+            doc.SetCellValue("BS" + fila.ToString(), reg.ALERTA3);
+            doc.SetCellValue("BT" + fila.ToString(), reg.CERRADO);
+            doc.SetCellValue("BU" + fila.ToString(), reg.USUARIO);
+            doc.SetCellValue("BV" + fila.ToString(), reg.ID_OTROSI);
+            doc.SetCellValue("BW" + fila.ToString(), reg.ID_CONTRATO_PRODUCTO);
+            doc.SetCellValue("BX" + fila.ToString(), reg.FECHA_ACTA);
+            doc.SetCellValue("BY" + fila.ToString(), reg.TOTAL_ADICIONES);
+            doc.SetCellValue("BZ" + fila.ToString(), reg.TOTAL_PRORROGA_MES);
+            doc.SetCellValue("CA" + fila.ToString(), reg.ID_ANEXO);
+            doc.SetCellValue("CB" + fila.ToString(), reg.ANEXO);
+        }
+
+        private string NombreSalida() {
+            string salida = "";
+            DateTime fec = DateTime.Now;
+
+            salida = "Info_" + fec.Year.ToString().PadLeft(4, '0') + fec.Month.ToString().PadLeft(2, '0') + fec.Day.ToString().PadLeft(2, '0') + "_" + fec.Hour.ToString().PadLeft(2, '0') + fec.Minute.ToString().PadLeft(2, '0') + fec.Second.ToString().PadLeft(2, '0');
+            return salida;
+        } 
+    }
+}
